@@ -1,14 +1,325 @@
 <!Doctype html>
 <html>
+
 <head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <style type="text/css">
+
+  body{
+      ;
+      background-color: #0089FF	;
+
+    }
+
+  #container{
+    height: 1000px;
+    width: 1200px;
+    background-color: #D0D0D0;
+    margin: auto;
+    display: block;
+
+  }
+
+  #header {
+display: block;
+
+  }
+
+#niftbar{
+  height: 30px;
+  width: 1200px;
+  background-color: #0089FF	;
+
+}
+
+#tname{
+
+}
+
+#othername{
+
+
+}
+
+
+#homeroster{
+  display: inline;
+  width: 400px;
+  float: left;
+  margin-left: 300px;
+
+}
+
+#awayroster{
+  display: inline;
+  width: 400px;
+  float: right;
+
+
+}
+#inter{
+  display: block;
+  float: left;
+  height: 100px;
+  width: 1200px;
+visibility: hidden;
+
+}
+#lol{
+
+}
+
+#reportsubmit, #texta{
+  visibility: hidden;
+}
+  </style>
+
+  <script type="text/javascript">
+
+var array_name = [];
+var array_nameaway = [];
+var teamcode;
+var neeteamname;
+var othernamecode;
+var teamname;
+
+function reportscore(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+  var usermapswon = prompt("How many maps did your team win?");
+  var awaymapswon = prompt("How many maps did the opposing team win?")
+var time = firebase.database.ServerValue.TIMESTAMP;
+  if(usermapswon > awaymapswon)
+  {
+
+    firebase.database().ref("/scorereport/" + time +"/winr/").set({
+          winner: teamname + " has won against " +  neeteamname + " " + usermapswon + "-" + awaymapswon + " TeamSeed: " + seed + " Teamtwitter: " + twitter,
+
+        });
+
+        firebase.database().ref("/sr/" + teamcode).set({
+              done: true,
+            });
+
+        document.getElementById("report").style.visibility="hidden";
+  }
+  else if(usermapswon < awaymapswon)
+  {
+
+
+    firebase.database().ref("/scorereport/" + time +"/loser/").set({
+      looswer: neeteamname + " has won against " +  teamname + " " + awaymapswon + "-" + usermapswon + " TeamSeed: " + seed + " Teamtwitter: " + twitter,
+
+        });
+
+        firebase.database().ref("/sr/" + teamcode).set({
+              done: true,
+            });
+
+  document.getElementById("report").style.visibility="hidden";
+  }
+  else{
+    alert("You have done something terribly terribly wrong");
+  }
+}
+  function checkteam(){
+
+
+
+        var reef = firebase.database().ref().child('/sr/');
+        reef.once('value', function(snapshot) {
+          if (snapshot.hasChild(teamcode)) {
+          document.getElementById("report").style.visibility = "hidden";
+            document.getElementById("texta").style.visibility = "hidden";
+              document.getElementById("reportsubmit").style.visibility = "hidden";
+          }
+
+        });
+
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+
+
+     teamcode = document.getElementById('teamid').value;
+
+    var yool = false;
+
+    var ref = firebase.database().ref().child('/teams/');
+    ref.once('value', function(snapshot) {
+      if (snapshot.hasChild(teamcode)) {
+        alert('exists');
+        yool = true;
+      }
+      else{
+        alert('code does not exist');
+          window.location.href = "index.htm";
+      }
+    });
+
+
+    var reff = firebase.database().ref().child(teamcode + '/name/');
+    reff.once('value', function(snapshot) {
+      teamname = snapshot.val();
+document.getElementById("inter").style.visibility = "visible";
+     document.getElementById("teamhq").style.visibility = "hidden";
+        document.getElementById("teamid").style.visibility = "hidden";
+           document.getElementById("tn").innerHTML = "Current Match";
+     document.getElementById("tname").innerHTML = teamname;
+
+    });
+
+    database.ref(teamcode + "/roster/").once('value',function(snap) {
+                snap.forEach(function(item) {
+                var itemVal = item.val();
+                array_name.push(itemVal);
+
+              });
+for (i = 0; i < array_name.length; i++) {
+document.getElementById("roster").innerHTML += "PSN: " + array_name[i] + "<br />";
+}
+
+var rez = firebase.database().ref().child(teamcode + '/matchnumber/');
+rez.once('value', function(snapshot) {
+ othernamecode = snapshot.val();
+ var rezz = firebase.database().ref().child(othernamecode + '/name/');
+ rezz.once('value', function(snapshot) {
+    neeteamname = snapshot.val();
+
+
+  document.getElementById("othername").innerHTML = neeteamname;
+  database.ref(othernamecode + "/roster/").once('value',function(snap) {
+              snap.forEach(function(item) {
+              var itemVal = item.val();
+              array_nameaway.push(itemVal);
+
+            });
+for (i = 0; i < array_nameaway.length; i++) {
+document.getElementById("aroster").innerHTML += "PSN: " + array_nameaway[i] + "<br />";
+}
+
+
+});
+
+ });
+
+
+});
+});
+
+
+
+
+
+
+
+
+}
+
+function dispute(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+document.getElementById("reportsubmit").style.visibility="visible";
+
+document.getElementById("texta").style.visibility="visible";
+
+}
+
+function reportscoresubmit(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+  document.getElementById("reportsubmit").style.visibility="hidden";
+
+  document.getElementById("texta").style.visibility="hidden";
+var le = document.getElementById("texta").value;
+  firebase.database().ref("/scorereport/" + time +"/dispute/").set({
+
+        winner: le,
+      });
+
+      firebase.database().ref("/sr/" + teamcode).set({
+            done: true,
+          });
+
+}
+
+  </script>
 
 </head>
 
 <body>
-<p> What up </p>
-<h1> umm </h1>
+<div id="container">
+
+  <div id="header">
+    <center>
+      <img src="images/ngelogo.png" height="200px" width="300px"/>
+    </center>
+  </div>
 
 
+  <div id="niftbar">
+
+  </div>
+
+  <div id="bodybody">
+
+
+    <center>
+      <h1 id="tn"> Type in the Team ID Code given to you below </h1>
+
+      <input id ="teamid" type="teamid" placeholder="Team ID">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <button onclick="checkteam();" id="teamhq">Enter Team HQ</button>
+    </center>
+
+
+    <div id="homeroster">
+        <h1 id="tname" style=" diplay: inline;"> </h1>
+    <p id="roster"></roster>
+    </div>
+
+    <div id="awayroster">
+      <h1 id="othername" style="margin-right: 100px; diplay: inline;"> </h1>
+      <p id="aroster"></roster>
+    </div>
+    <center>
+<div id="inter">
+
+      <button id="report" onclick="reportscore();"> Report Score </button>
+      <button id="lol" onclick="dispute();"> Problem with Match </button>
+      <br />
+      <textarea id="texta"rows="4" cols="50">
+        Detail the problem with your match and include links:
+      </textarea><br />
+      <button id="reportsubmit" onclick="reportscoresubmit();"> Submit</button>
+      <br />
+
+  </div>
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+  <img src="Mam/uss.png" height= "175px" width="175px" />
+
+    </center>
+  </div>
+</div>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+    authDomain: "poctest-c1a05.firebaseapp.com",
+    databaseURL: "https://poctest-c1a05.firebaseio.com",
+    projectId: "poctest-c1a05",
+    storageBucket: "poctest-c1a05.appspot.com",
+    messagingSenderId: "434071952145"
+  };
+  firebase.initializeApp(config);
+  </script>
 </body>
 
 </html>
