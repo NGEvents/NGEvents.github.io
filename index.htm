@@ -168,7 +168,7 @@ var n = d.getTime();
         yool = true;
       }
       else{
-        alert('code does not exist');
+
 
       }
     });
@@ -177,7 +177,10 @@ var n = d.getTime();
     var reff = firebase.database().ref().child(teamcode + '/name/');
     reff.on('value', function(snapshot) {
       teamname = snapshot.val();
-
+if(teamname == null)
+{
+    alert('code does not exist');
+}
 document.getElementById("inter").style.visibility = "visible";
      document.getElementById("teamhq").style.visibility = "hidden";
         document.getElementById("teamid").style.visibility = "hidden";
