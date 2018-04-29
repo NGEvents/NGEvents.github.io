@@ -709,8 +709,8 @@ else{
 
 function follow(tableText){
 
-
-  firebase.database().ref(userID + '/Following/' + tableText.id).update({tableText.id});
+var ch = tableText.id;
+  firebase.database().ref(userID + '/Following/' + tableText.id).update({ch});
   document.getElementById(otheruserID).innerHTML = "UnFollow";
 
 
@@ -718,7 +718,7 @@ function follow(tableText){
 }
 
 function Unfollow(tableText){
-
+var ch = tableText.id;
 firebase.database().ref(userID + '/Following/' + tableText.id).remove();
   document.getElementById(otheruserID).innerHTML = "Follow";
 
