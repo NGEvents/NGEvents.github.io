@@ -298,7 +298,7 @@ function newal(){
     var database = firebase.database();
   var postfill = [];
 
-  database.ref(userID + '/following/').on('value',function(snap) {
+  database.ref(userID + '/Following/').on('value',function(snap) {
 
               snap.forEach(function(item) {
 
