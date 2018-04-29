@@ -1,9 +1,9 @@
 <!-- All code written on this site is sole property of National Gaming Events
-Developer: Allen Olsen Kendrick (zNine)
+Developer: Allen Olsen Kendrick (zNine) Twitter @MoazNine
  Version Number='0.0.0'
  Version Update='0'
- Version Name = 'Ambush'
- Publish Date = '04-29-2018'
+ Version Name = 'AfterMath'
+ Version Publish Date = '04-29-2018'
 Developer Notes: -->
 <!DOCTYPE html>
 <html>
@@ -141,8 +141,18 @@ font-size: 20px;
 
 #ff{
   height: 482px;
+  overflow: scroll;
   width: 700px;
+
 }
+
+#ff::-webkit-scrollbar {
+    display: none;
+}
+body{
+
+}
+
 #post{
 
   height: 50px;
@@ -196,6 +206,40 @@ border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
+
+
+#texttext{
+  font-size: 20px;
+
+
+}
+
+#textdate{
+  font-size: 25px;
+  color: white;
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+  margin-top: 14px;
+}
+
+#postname{
+  font-size: 25px;
+  margin-left: 40px;
+
+
+}
+
+#umenu{
+  height: 30px;
+  width: 500px;
+  background-color:  #1aa0e0;
+  border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    color: white;
+    word-spacing: 20px;
+    font-size: 20px;
+}
 </style>
 <script type="text/javascript">
   var table = document.getElementById("ff");
@@ -210,6 +254,7 @@ function pagesetup(){
   var database = firebase.database();
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+
           // User is signed in.
         userID = firebase.auth().currentUser.uid;
 
@@ -228,12 +273,18 @@ function pagesetup(){
 
         });
 
-
+          fillwindwow();
 
 
         }
         else{
-          window.location.href = "signin.htm";
+        //  window.location.href = "signin.htm";
+
+        userID = "LfPm0EWLSLU1rYGaMv0v89Juu2x1";
+        usname = "zNinee";
+        picpicpic = "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758";
+
+fillwindwow();
         }
       })
 
@@ -241,9 +292,112 @@ function pagesetup(){
 
 }
 
+function fillwindwow(){
+  var database = firebase.database();
+var postfill = [];
+  database.ref(userID + '/posts/').on('value',function(snap) {
+      postfill = [];
+              snap.forEach(function(item) {
+
+              var droptop = item.val();
+
+
+                postfill.push(droptop);
+
+
+            })
+            document.getElementById("ff").innerHTML = "";
+
+             var tbl = document.createElement('table');
+             var l = 0;
+            for(var i = postfill.length -1; i > 0; i--){
+var header = tbl.createTHead();
+
+
+              var row = header.insertRow(l);
+              row.style.backgroundColor = "#1aa0e0";
+              row.style.height = "100px";
+              row.style.width = "700px";
+              l++
+
+              var cell1 = row.insertCell(0);
+
+              cell1.colspan = "2";
+              cell1.style.width = "700px";
+              cell1.style.height = "100px";
+              cell1.style.borderBottomLeftRadius = "0px";
+                    cell1.style.borderBottomRightRadius = "0px";
+                    cell1.style.borderTopLeftRadius = "25px";
+                          cell1.style.borderTopRightRadius = "25px";
+                cell1.style.fontSize = "40px";
+                cell1.style.fontFamily = "sans-serif";
+                var img = document.createElement('img');
+                img.src = postfill[i].pic;
+                img.style.height = "100px";
+                img.style.width = "100px";
+                img.style.float = "left";
+                img.style.borderColor = "white";
+                img.style.borderWidth = "Thick";
+
+                var sspan = document.createElement('span');
+                sspan.innerHTML =  postfill[i].text;
+                sspan.style.fontSize = "10px";
+                sspan.style.color = "blue";
+                sspan.id = "textext";
+
+                              //cell1.style.textAlign = "center";
+              cell1.id = postfill[i].id;
+            //  cell1.onclick = function () {
+            //            tableText(this);
+              //      };
+
+
+
+                                var row2 = header.insertRow(l);
+                                l++;
+                                  var cell2 = row2.insertCell(0);
+
+                                row2.style.height = "30px";
+                                row2.style.width = "700px";
+                                row2.style.backgroundColor = "#1aa0e0";
+                                cell2.style.width = "350px";
+                                cell2.style.height = "30px";
+                                  cell2.style.borderBottomLeftRadius = "25px";
+                                        cell2.style.borderBottomRightRadius = "25px";
+                                        cell2.style.textAlign = "center";
+                                        cell2.style.color = "white";
+                                        cell2.style.textAlign = "center";
+                                          cell2.onclick = function () {
+                                                   goodluck(postfill[i]);
+                                                };
+                                        cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+
+
+            cell1.appendChild(img);
+                  cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+
+//sspan.
+              var div = document.getElementById('ff');
+                 div.appendChild(tbl);
+
+
+
+            }
+          })
+
+}
+
+function goodluck(va){
+  var database = firebase.database();
+  document.getElementById("utility").innerHTML = "";
+
+
+
+}
+
 function searchscript(){
 
-  userID = firebase.auth().currentUser.uid;
+//  userID = firebase.auth().currentUser.uid;
 
 var imgg = document.createElement('imgg');
   var firebaseref = firebase.database().ref();
@@ -260,6 +414,7 @@ var imgg = document.createElement('imgg');
                 if(usertext == "")
                 {
                   unames = [];
+                  location.reload();
                 }
                 else if(usertext.toLowerCase() == newnew.toLowerCase()){
                 unames.push(usernames);
@@ -315,6 +470,7 @@ cell1.appendChild(imgg);
 
 
         }
+
 
 
 function tableText(tableCell) {
@@ -577,7 +733,9 @@ firebase.database().ref(userID + '/Following/' + otheruserID).remove();
 
 
 }
-
+function al(){
+  alert("lol");
+}
 function signout(){
   firebase.auth().signOut().then(function() {
   console.log('Signed Out');
@@ -586,19 +744,97 @@ function signout(){
 });
 }
 
+function monthscript(month){
+  var trolo = month + 1;
+  switch(month){
+              case 1:
+                  return "January";
+                  break;
+              case 2:
+                  return "February";
+                  break;
+              case 3:
+                  return "March";
+                  break;
+              case 4:
+                  return "April";
+                  break;
+              case 5:
+                return "May";
+                  break;
+              case 6:
+                  return "June";
+                  break;
+              case 7:
+                  return "July";
+                  break;
+              case 8:
+                  return "August";
+                  break;
+              case 9:
+                  return "September";
+                  break;
+              case 10:
+                  return "October";
+                  break;
+              case 11:
+                  return "November";
+                  break;
+              case 12:
+                  return "December";
+                  break;
+              default:
+                  monthName = "Invalid month";
+                  break;
+
+
+  }
+}
 function postmessage(){
-  var usermessage = document.getElementById("typesend").value;
+  var usermessage = document.getElementById("usertype").value;
+  document.getElementById("usertype").value = "";
+
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var date = d.getDate();
+  var hours = d.getHours();
+  var minutes = d.getMinutes();
+  var datte;
+
+//var last2 = year.slice(-2);
+//var last2 = year.toString().substr(year.length -2);
+var last2 = year.toString().slice(-2);
+if(hours > 11)
+{
+//   datte = monthscript(month) + " " + date + " " + year + " " + hours + ":" + minutes + "pm";
+
+   datte = hours + ":" + minutes + " " + "pm" +  " " + monthscript(month) + " " + date + " '" + last2 + " ";
+}
+else{
+     datte = hours + ":" + minutes + "am"  + " " + monthscript(month) + " " + date + " '" + last2 + " ";
+}
+
+var sizecheck = usermessage.toLowerCase().search("font-size:");
+var buttoncheck = usermessage.toLowerCase().search("</button>");
+
+
+if(sizecheck != -1){
+  alert("You can not change the size of your font. Use <Strong> to bold :)");
+
+}
+else if(buttoncheck != -1){
+  alert("You can not add buttons. Use <a> to link :)");
+}
+else{
+
+
+
   database.ref(userID + '/Followers/').on('value',function(snap) {
       var usernameids = [];
-      var data =
-      {
-        username: usname,
-        userid: userID,
-        text: usermessage,
-        pic: picpicpic,
-      }
+
               snap.forEach(function(item) {
 
               var id = item.val();
@@ -612,9 +848,24 @@ function postmessage(){
 
             for(var i = 0; i < usernameids.length; i++)
             {
+              var data =
+              {
+                username: usname,
+                userid: userID,
+                text: usermessage,
+                pic: picpicpic,
+                date: datte,
+                votes: 0,
+
+                comments: 0,
+
+
+              }
               var stupid = usernameids[i];
 var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
 var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+
+
 
 
 var updates = {};
@@ -630,6 +881,8 @@ return firebase.database().ref().update(updates);
 
 
 })
+
+}
 }
 </script>
 
@@ -689,11 +942,13 @@ return firebase.database().ref().update(updates);
 </div>
 
 <div id="utility">
-  <table>
-    <tr>
-    </tr>
+  <div id="umenu">
+    <center>
+    Competetion &nbsp&nbsp&nbsp  Comunity &nbsp&nbsp&nbsp News
+  </center>
 
-  </table>
+  </div>
+
 
 </div>
 <div id="footer">
