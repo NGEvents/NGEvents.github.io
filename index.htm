@@ -315,7 +315,6 @@ function newal(){
             for(var x = 0; x < id.length; x++){
               var lul = id[x].ch;
               database.ref(lul + '/Myposts/').on('value',function(snap) {
-postfill = [];
                           snap.forEach(function(item) {
 
                           var newpost = item.val();
@@ -331,7 +330,7 @@ postfill = [];
                            var tbl = document.createElement('table');
                            var l = 0;
 
-                          for(var i = postfill.length - 1; i > 0; i--){
+                          for(var i = postfill.length; i > 0; i--){
                           var header = tbl.createTHead();
 
 
@@ -943,7 +942,7 @@ if(hours > 11)
 {
 //   datte = monthscript(month) + " " + date + " " + year + " " + hours + ":" + minutes + "pm";
 
-   datte = hours + ":" + minutes + " " + "pm" +  " " + monthscript(month) + " " + date + " '" + last2 + " ";
+   datte = hours - 12 + ":" + minutes + " " + "pm" +  " " + monthscript(month) + " " + date + " '" + last2 + " ";
 }
 else{
      datte = hours + ":" + minutes + "am"  + " " + monthscript(month) + " " + date + " '" + last2 + " ";
