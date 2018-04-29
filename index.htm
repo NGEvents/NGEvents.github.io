@@ -983,7 +983,7 @@ var updates = {};
 
   updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
   updates[userID + '/posts/' + newPostKey] = data;
-  updates[userID + '/Myposts'/ + newuserkey] = data;
+  updates[userID + '/Myposts/' + newuserkey] = data;
 
 return firebase.database().ref().update(updates);
 
