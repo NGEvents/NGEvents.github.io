@@ -592,12 +592,12 @@ function postmessage(){
   database.ref(userID + '/Followers/').on('value',function(snap) {
       var usernameids = [];
       var data =
-      [
+      {
         username: usname,
         userid: userID,
         text: usermessage,
         pic: picpicpic,
-      ];
+      }
               snap.forEach(function(item) {
 
               var id = item.val();
