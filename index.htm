@@ -555,6 +555,14 @@ firebase.database().ref(userID + '/Following/' + otheruserID).remove();
 
 
 }
+
+function signout(){
+  firebase.auth().signOut().then(function() {
+  console.log('Signed Out');
+}, function(error) {
+  console.error('Sign Out Error', error);
+});
+}
 </script>
 
 
@@ -583,7 +591,7 @@ firebase.database().ref(userID + '/Following/' + otheruserID).remove();
     &nbsp&nbsp
   <img src="Images/shop.png" height="40px" width="40px" />
     &nbsp&nbsp
-  <img  src="Images/signout.png" height="40px" width="40px" />
+  <button onclick="signout();"><img  src="Images/signout.png" height="40px" width="40px" /></button>
 </div>
 
 </div>
