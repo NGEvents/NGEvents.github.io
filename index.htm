@@ -304,7 +304,7 @@ function newal(){
 
               var droptop = item.val();
 
-              database.ref(droptop.ch + '/userpost/').on('value',function(snap) {
+              database.ref(droptop.ch + '/Myposts/').on('value',function(snap) {
                   postfill = [];
                           snap.forEach(function(item) {
 
