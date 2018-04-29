@@ -589,7 +589,7 @@ function signout(){
 function postmessage(){
   var usermessage = document.getElementById("typesend").value;
 
-  database.ref('/Users/').on('value',function(snap) {
+  database.ref(userID + '/Followers/').on('value',function(snap) {
       var usernameids = [];
       var data =
       [
