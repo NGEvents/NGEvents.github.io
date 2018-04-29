@@ -612,12 +612,13 @@ function postmessage(){
 
             for(var i = 0; i < usernameids.length; i++)
             {
-var newPostKey = firebase.database().ref().child(usernameids[i] + '/posts/').push().key;
+              var stupid = usernameids[i];
+var newPostKey = firebase.database().ref().child(stupid + '/posts/').push().key;
 var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
 
 
 var updates = {};
-var stupid = usernameids[i];
+
   updates[stupid + '/posts/' + newPostKey] = data;
   updates[userID + '/posts/' + newPostKey] = data;
 
