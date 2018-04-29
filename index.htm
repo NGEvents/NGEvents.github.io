@@ -312,16 +312,24 @@ function newal(){
 
             })})
 
-            database.ref(droptop.ch + '/Myposts/').on('value',function(snap) {
+for(var i = 0; i < id.length; i++){
+  database.ref(id[i].ch + '/Myposts/').on('value',function(snap) {
 
-                        snap.forEach(function(item) {
+              snap.forEach(function(item) {
 
-                        var newpost = item.val();
-                        postfill.push(newpost);
+              var newpost = item.val();
+              postfill.push(newpost);
 
 
 
-                      })})
+            })})
+
+
+
+
+
+}
+
 
 
           postfill = postfill.sort((a, b) => a - b);
@@ -398,7 +406,7 @@ function newal(){
               var div = document.getElementById('ff');
                  div.appendChild(tbl);
             }
-            
+
           }
 
 
