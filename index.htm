@@ -216,7 +216,7 @@ function pagesetup(){
         var trylq = firebase.database().ref().child(userID + '/name/');
         trylq.on('value', function(snapshot) {
           usname = snapshot.val();
-          document.getElementById.("username").innerHTML = usname;
+          document.getElementById("username").innerHTML = usname;
 
         });
 
