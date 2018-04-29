@@ -1,0 +1,176 @@
+<!Doctype html>
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <style type="text/css">
+
+  body{
+      ;
+      background-color: #0089FF	;
+
+    }
+
+  #container{
+    height: 1000px;
+    width: 1200px;
+    background-color: #D0D0D0;
+    margin: auto;
+    display: block;
+
+  }
+
+  #header {
+display: block;
+
+  }
+
+#niftbar{
+  height: 30px;
+  width: 1200px;
+  background-color: #0089FF	;
+
+}
+
+#tname{
+
+}
+
+#othername{
+
+
+}
+
+
+#homeroster{
+  display: inline;
+  width: 400px;
+  float: left;
+  margin-left: 300px;
+
+}
+
+#awayroster{
+  display: inline;
+  width: 400px;
+  float: right;
+
+
+}
+#inter{
+  display: block;
+  float: left;
+  height: 100px;
+  width: 1200px;
+visibility: hidden;
+
+}
+#lol{
+
+}
+
+#reportsubmit, #texta{
+  visibility: hidden;
+}
+
+#veto{
+  visibility: hidden;
+}
+  </style>
+
+<script type="text/javascript">
+function signup(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+  var teamname = document.getElementById("teamname").value;
+  var psn1 = document.getElementById("psn1").value;
+  var psn2 = document.getElementById("psn2").value;
+  var psn3 = document.getElementById("psn3").value;
+  var psn4 = document.getElementById("psn4").value;
+  var psn5 = document.getElementById("psn5").value;
+  var psn6 = document.getElementById("psn6").value;
+  var twitter = document.getElementById("teamtwitter").value;
+
+  if(teamname != null && psn1 != null && psn2 != null && twitter != null){
+    var tcode = randomgen();
+    firebase.database().ref(tcode).update({name: teamname});
+    firebase.database().ref(tcode).update({twitter: twitter});
+    firebase.database().ref(tcode + '/roster/').set({
+                1: psn1,
+                2: psn2,
+                3: psn3,
+                4: psn4,
+                5: psn5,
+                6: psn6,
+             });
+
+             alert("Your team code is " + tcode + " write this down as you will need this for future purposes!");
+
+
+
+  }
+}
+
+function randomgen(){
+  var text = "";
+   var possible = "abcdef0123456789";
+
+   for (var i = 0; i < 4; i++)
+     text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+   return text;
+
+}
+</script>
+  </head>
+<body>
+<div id="container">
+
+  <div id="header">
+    <center>
+      <img src="images/ngelogo.png" height="200px" width="300px"/>
+    </center>
+  </div>
+
+
+  <div id="niftbar">
+
+  </div>
+
+  <div id="bodybody">
+    <center>
+      <br />
+
+      <h1> OQ 3 Qualifyers </h1>
+      <br />
+  <input id ="teamname" type="teamid" placeholder="Team name"><br /><br />
+  <input id ="psn1" type="teamid" placeholder="PSN Player 1"><br /><br />
+  <input id ="psn2" type="teaid" placeholder="PSN Player 2"><br /><br />
+  <input id ="psn3" type="tamid" placeholder="PSN Player 3"><br /><br />
+  <input id ="psn4" type="eamid" placeholder="PSN Player 4"><br /><br />
+  <input id ="psn5" type="eami" placeholder="PSN Player Sub1"><br /><br />
+  <input id ="psn6" type="eai" placeholder="PSN Player Sub2"><br /><br />
+  <input id ="teamtwitter" type="emi" placeholder="Contact Twitter Handle"><br /><br />
+  <button onclick="signup();"> Submit </button>
+</center>
+
+
+
+
+
+</div>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+    authDomain: "poctest-c1a05.firebaseapp.com",
+    databaseURL: "https://poctest-c1a05.firebaseio.com",
+    projectId: "poctest-c1a05",
+    storageBucket: "poctest-c1a05.appspot.com",
+    messagingSenderId: "434071952145"
+  };
+  firebase.initializeApp(config);
+  </script>
+</body>
+
+</html>

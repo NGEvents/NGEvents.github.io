@@ -1,1169 +1,648 @@
-<!Doctype html>
+<!-- All code written on this site is sole property of National Gaming Events
+Developer: Allen Olsen Kendrick (zNine)
+ Version Number='0.0.0'
+ Version Update='0'
+ Version Name = 'Ambush'
+ Publish Date = '04-29-2018'
+Developer Notes: -->
+<!DOCTYPE html>
 <html>
-
 <head>
-  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-  <style type="text/css">
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<style type="text/css">
 
-  body{
-      ;
-      background-color: #0089FF	;
+body{
+  background-color: #333333;
 
-    }
+}
 
-  #container{
-    height: 1000px;
-    width: 1200px;
-    background-color: #D0D0D0;
-    margin: auto;
-    display: block;
-
-  }
-
-  #header {
+#head{
+  height: 50px;
 display: block;
-
-  }
-
-#niftbar{
-  height: 30px;
-  width: 1200px;
-  background-color: #0089FF	;
-
-}
-
-#tname{
-
-}
-
-#othername{
+  background-color: #1aa0e0;
+margin-top: -8px;
+width: 100%;
+margin-left: auto;
+margin-right: auto;
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+left: 0;
+ border-bottom: 2px solid white;
+ border-left: 2px solid white;
+ border-right: 2px solid white;
 
 
 }
 
-
-#homeroster{
-  display: inline;
-  width: 400px;
+#username{
+  color: white;
+  margin-left: 20px;
   float: left;
-  margin-left: 300px;
+  padding-top: 10px;
+  font-size: 30px;
+  font-family: sans-serif;
+  display: block;
+}
+
+#headerlogo{
+
+
+margin-top: -30px;
+margin-left: -30px;
+
 
 }
 
-#awayroster{
-  display: inline;
-  width: 400px;
+#menu{
+  border-radius: 100px;
+  margin-top: -80px;
   float: right;
-
+  margin-right: 40px;
 
 }
-#inter{
+
+#footer{
+
+position: fixed;
+left: 10px;
+bottom: 0;
+height: 30px;
+width: 98.2%;
+background-color: #1aa0e0;
+color: white;
+text-align: center;
+border-top: 2px solid white;
+border-left: 2px solid white;
+border-right: 2px solid white;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+font-size: 20px;
+
+}
+
+#ftext{
+  font-family: sans-serif;
+  margin-top: 5px;
+}
+
+#feed{
+  margin-top: 5px;
+  margin-left: 05px;
+  background-color: #d9d9d9;
+  height: 618px;
+  width: 700px;
+  border-radius: 20px;
   display: block;
   float: left;
-  height: 100px;
-  width: 1200px;
-visibility: hidden;
-
-}
-#lol{
-
+  border: 4px solid #1aa0e0;
 }
 
-#reportsubmit, #texta{
-  visibility: hidden;
+#utility{
+  margin-top: 5px;
+  margin-left: 05px;
+  background-color: #d9d9d9;
+  height: 618px;
+  width: 500px;
+  border-radius: 20px;
+  display: block;
+  float: right;
+  border: 4px solid #1aa0e0;
 }
 
-#veto{
-  visibility: hidden;
+#search{
+  background-color: #1aa0e0;
+  height: 40px;
+  width: 600px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-radius: 20px;
 }
-  </style>
 
-  <script type="text/javascript">
+#mags{
+  margin-top: 0px;
+  display: block;
+  margin-left: 15px;
+}
 
-var array_name = [];
-var array_nameaway = [];
-var teamcode;
-var neeteamname;
-var seed;
-var otherseed;
-var othernamecode;
-var hardpointvetos;
-var sndvetos;
-var ctfvetos;
-var teamname;
-var lulz = 0;
+#usersearch{
+  background-color: white;
+  height: 30px;
+  width: 520px;
+  display: block;
+  margin-top: -28px;
+  border-radius: 20px;
+  margin-left: 48px;
+  color: black;
+  font-size: 30px;
 
-function reportscore(){
+}
+
+#ff{
+  height: 482px;
+  width: 700px;
+}
+#post{
+
+  height: 50px;
+  width: 700px;
+  background-color: #1aa0e0;
+  display: block;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+
+
+}
+
+#usertype{
+  background-color: white;
+  height: 30px;
+  width: 520px;
+  display: block;
+
+  border-radius: 10px;
+  margin-left: 48px;
+  margin-top: -13px;
+  color: black;
+  font-size: 20px;
+  float: left;
+
+
+}
+#typesend{
+  display: block;
+  background-color: white; /* Green */
+border-style: 1px;
+border-color: white;
+color: #1aa0e0;
+float: right;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+margin-right: 50px;
+
+margin-top: -29px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+</style>
+<script type="text/javascript">
+  var table = document.getElementById("ff");
+
+var unames = [];
+var followcount = 1;
+var pics = []
+function pagesetup(){
+  var database = firebase.database();
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          user= user;
+        }
+        else{
+          window.location.href = "signin.htm";
+        }
+      })
+
+
+
+}
+
+function searchscript(){
+
+//  userId = firebase.auth().currentUser.uid;
+var userID = "fofnoqe";
+var imgg = document.createElement('imgg');
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
-
-  var usermapswon = prompt("How many maps did your team win?");
-  var awaymapswon = prompt("How many maps did the opposing team win?")
-var time = firebase.database.ServerValue.TIMESTAMP;
-var d = new Date();
-var n = d.getTime();
-  if(usermapswon > awaymapswon)
-  {
-
-    firebase.database().ref("/scorereport/" + "/winr/" + n).set({
-          winner: teamname + " has won against " +  neeteamname + " " + usermapswon + "-" + awaymapswon + " WinningTeamSeed: " + TeamSeed  ,
-
-        });
-
- firebase.database().ref(teamcode).update({done: true});
-
-        document.getElementById("report").style.visibility="hidden";
-  }
-  else if(usermapswon < awaymapswon)
-  {
-
-
-    firebase.database().ref("/scorereport/" + "/loser/" + n).set({
-      looswer: neeteamname + " has won against " +  teamname + " " + awaymapswon + "-" + usermapswon + " WinningTeamSeed: " + otherseed  ,
-
-        });
-
-         firebase.database().ref(teamcode).update({done: true});
-
-  document.getElementById("report").style.visibility="hidden";
-  }
-  else{
-    alert("You have done something terribly terribly wrong");
-  }
-}
-  function checkteam(){
-
-    var firebaseref = firebase.database().ref();
-    var database = firebase.database();
-
-
-
-
-
-
-
-
-
-     teamcode = document.getElementById('teamid').value;
-     var t = firebase.database().ref().child(teamcode + '/done/');
-     t.on('value', function(snapshot) {
-       var lelel = snapshot.val();
-       if (lelel == true) {
-       document.getElementById("report").style.visibility = "hidden";
-         document.getElementById("texta").style.visibility = "hidden";
-           document.getElementById("reportsubmit").style.visibility = "hidden";
-
-              document.getElementById("lol").style.visibility = "hidden";
-       }
-
-     });
-
-
-    var yool = false;
-
-    var ref = firebase.database().ref().child('/teams/');
-    ref.on('value', function(snapshot) {
-      if (snapshot.hasChild(teamcode)) {
-
-        yool = true;
-      }
-      else{
-
-
-      }
-    });
-
-
-    var reff = firebase.database().ref().child(teamcode + '/name/');
-    reff.on('value', function(snapshot) {
-      teamname = snapshot.val();
-if(teamname == null)
-{
-    alert('code does not exist');
-}
-document.getElementById("inter").style.visibility = "visible";
-     document.getElementById("teamhq").style.visibility = "hidden";
-        document.getElementById("teamid").style.visibility = "hidden";
-           document.getElementById("tn").innerHTML = "Current Match";
-     document.getElementById("tname").innerHTML = teamname;
-
-    });
-
-
-
-
-        var reffse = firebase.database().ref().child(teamcode + '/seed/');
-        reffse.on('value', function(snapshot) {
-          TeamSeed = snapshot.val();
-
-
-        });
-
-
-    database.ref(teamcode + "/roster/").once('value',function(snap) {
-                snap.forEach(function(item) {
-                var itemVal = item.val();
-                array_name.push(itemVal);
-
-              });
-for (i = 0; i < array_name.length; i++) {
-document.getElementById("roster").innerHTML += "PSN: " + array_name[i] + "<br />";
-}
-
-var rez = firebase.database().ref().child(teamcode + '/matchnumber/');
-rez.on('value', function(snapshot) {
- othernamecode = snapshot.val();
-
- var rezz = firebase.database().ref().child(othernamecode + '/name/');
- rezz.on('value', function(snapshot) {
-    neeteamname = snapshot.val();
-
-
-  document.getElementById("othername").innerHTML = neeteamname;
-  database.ref(othernamecode + "/roster/").on('value',function(snap) {
+  var usertext = document.getElementById("usersearch").value;
+  database.ref('/Users/').on('value',function(snap) {
+      unames = [];
               snap.forEach(function(item) {
-              var itemVal = item.val();
-              array_nameaway.push(itemVal);
 
+              var usernames = item.val();
+              var length = usertext.length;
+              var newuser = usernames.name.toString();
+              var newnew = newuser.slice(0, length);
+                if(usertext == "")
+                {
+                  unames = [];
+                }
+                else if(usertext.toLowerCase() == newnew.toLowerCase()){
+                unames.push(usernames);
 
-                  var reffsee = firebase.database().ref().child(othernamecode + '/seed/');
-                  reffsee.on('value', function(snapshot) {
-                    otherseed = snapshot.val();
-document.getElementById("othername").innerHTML = neeteamname + "(" + otherseed + ")";
-document.getElementById("tname").innerHTML = teamname + "(" + TeamSeed + ")";
-                    if(TeamSeed < otherseed)
-                    {
-                      document.getElementById("tname").style.color = "blue";
-                        document.getElementById("othername").style.color = "red";
-                    }
-                    else{
-                      document.getElementById("tname").style.color = "red";
-                        document.getElementById("othername").style.color = "blue";
-                    }
-
-                  });
-
-            });
-for (i = 0; i < array_nameaway.length; i++) {
-document.getElementById("aroster").innerHTML += "PSN: " + array_nameaway[i] + "<br />";
-}
-
-
-});
-
- });
-
-
-});
-});
+              }
 
 
 
+            })
+document.getElementById("ff").innerHTML = "";
+
+ var tbl = document.createElement('table');
+for(var i = 0; i < unames.length; i++){
 
 
+  var row = tbl.insertRow(i);
+  row.style.backgroundColor = "#1aa0e0";
+  row.style.height = "50px";
+  row.style.width = "600px";
+  row.style.borderRadius = "25px";
+  var cell1 = row.insertCell(0);
+
+  cell1.style.width = "600px";
+    cell1.style.borderRadius = "25px";
+    cell1.style.fontSize = "40px";
+    cell1.style.fontFamily = "sans-serif";
+    var img = document.createElement('img');
+    img.src = unames[i].pic;
+    img.style.height = "50px";
+    img.style.width = "50px";
+    img.style.float = "left";
+    img.style.borderColor = "white";
+    img.style.borderWidth = "Thick";
 
 
+  cell1.innerHTML = unames[i].name;
+  cell1.style.textAlign = "center";
+  cell1.id = unames[i].id;
+  cell1.onclick = function () {
+            tableText(this);
+        };
 
-}
+cell1.appendChild(img);
+cell1.appendChild(imgg);
+  var div = document.getElementById('ff');
+     div.appendChild(tbl);
 
-function dispute(){
-  var firebaseref = firebase.database().ref();
-  var database = firebase.database();
-
-document.getElementById("reportsubmit").style.visibility="visible";
-
-document.getElementById("texta").style.visibility="visible";
-
-
-
-}
-
-function reportscoresubmit(){
-  var firebaseref = firebase.database().ref();
-  var database = firebase.database();
-
-  document.getElementById("reportsubmit").style.visibility="hidden";
-
-  document.getElementById("texta").style.visibility="hidden";
-var le = document.getElementById("texta").value;
-  firebase.database().ref("/scorereport/dispute/").set({
-
-        dispute: le,
-      });
-
-      firebase.database().ref("/sr/" + teamcode).set({
-            done: true,
-          });
 
 }
 
-function vetoo(){
-  var firebaseref = firebase.database().ref();
-  var database = firebase.database();
+          })
 
-document.getElementById("container").style.height = "1400px";
-document.getElementById("veto").style.visibility  = "visible";
-
-var schect;
-var a = [];
-
-var vecheck = firebase.database().ref().child(teamcode);
-vecheck.once('value', function(snapshot) {
-  schect = snapshot.val();
-
-
-
-});
-
-
-
-
-
-var mapset = firebase.database().ref().child(teamcode + '/' + othernamecode + '/lowermap/map/');
-mapset.on('value', function(snapshot) {
-  var scmap = snapshot.val();
-
-  if(scmap == "hard")
-  {
-      document.getElementById("hpve").style.color = "blue";
-  }
-  else if(scmap == "cap")
-  {
-document.getElementById("ctfve").style.color = "blue";
-  }
-  else if(scmap == "snd")
-  {
-    document.getElementById("sndve").style.color = "blue";
-  }
-  else{
-    document.getElementById("hpve").style.color = "black";
-  }
-
-
-});
-
-
-var highmapset = firebase.database().ref().child(teamcode + '/' + othernamecode + '/highmap/map/');
-mapset.on('value', function(snapshot) {
-  var scccmap = snapshot.val();
-
-  if(scccmap == "hard")
-  {
-      document.getElementById("hpve").style.color = "red";
-  }
-  else if(scccmap == "cap")
-  {
-document.getElementById("ctfve").style.color = "red";
-  }
-  else if(scccmap == "snd")
-  {
-    document.getElementById("sndve").style.color = "red";
-  }
-  else{
-    document.getElementById("hpve").style.color = "black";
-  }
-
-
-});
-
-var starCountRef = firebase.database().ref(teamcode + '/ve');
-starCountRef.on('value', function(snapshot) {
-  schect = snapshot.val();
-
-
-        if(schect == null)
-        {
-   firebase.database().ref(teamcode).update({ve: true});
-   firebase.database().ref(othernamecode).update({ve: true});
-
-   firebase.database().ref(teamcode + '/' + othernamecode + '/lowermap/').update({map: false});
-   firebase.database().ref(teamcode + '/' + othernamecode + '/highmap/').update({map: false});
-
-   firebase.database().ref(othernamecode + '/' + teamcode + '/lowermap/').update({map: false});
-   firebase.database().ref(othernamecode + '/' + teamcode + '/highermap/').update({map: false});
-
-          firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').set({
-                      forrest: true,
-                      gibralter: true,
-                      london: true,
-                      saint: true,
-                      valkrie: true,
-                      vetoleft: 2,
-
-                   });
-
-                   firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').set({
-                               forrest: true,
-                               uss: true,
-                               london: true,
-                               saint: true,
-                               valkrie: true,
-                               vetoleft: 2,
-
-                            });
-
-                            firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').set({
-                                        forrest: true,
-
-                                        flak: true,
-                                        london: true,
-                                        vetoleft: 1,
-
-                                     });
-
-                                     firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').set({
-                                                 forrest: true,
-                                                 gibralter: true,
-                                                 london: true,
-                                                 saint: true,
-                                                 valkrie: true,
-                                                   vetoleft: 2,
-
-                                              });
-
-                                              firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').set({
-                                                          forrest: true,
-                                                          uss: true,
-                                                          london: true,
-                                                          saint: true,
-                                                          valkrie: true,
-                                                            vetoleft: 2,
-
-                                                       });
-
-                                                       firebase.database().ref(othernamecode + '/' + teamcode + '/CTFvetos/').set({
-                                                                   forrest: true,
-
-                                                                   flak: true,
-                                                                   london: true,
-                                                                     vetoleft: 1,
-
-
-                                                                });
-                                                                alert("As you can tell we are still working on this and are at the mear beginning of production. Please excuse this embarressing bug that is about to happen which causes all maps to be X'd out. To regain functionality  refresh the page and resubmitting your key");
 
 
         }
 
 
-});
+function tableText(tableCell) {
+  //  alert(tableCell.id);
+  var otheruserID = "fofnoqe";
+    var userID = "fofnoqe";
+  document.getElementById('ff').innerHTML ="";
+    var pic;
+    var username;
+    var xp;
+    var trials;
+    var followers;
+    var following;
+    var psn;
+    var xbl;
+    var earnings
+var twitter;
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+    var psnlength;
 
 
 
 
+        var picq = firebase.database().ref().child(tableCell.id + '/pic/');
+        picq.on('value', function(snapshot) {
+          pic = snapshot.val();
+          var img = document.createElement('img');
+          img.src = pic;
+          img.style.height = "100px";
+          img.style.width = "100px";
+        //  img.style.marginLeft = "299px";
+        //  img.style.marginRight = "auto";
+          var div = document.getElementById('ff');
+             div.appendChild(img);
+        });
 
-        database.ref(teamcode + '/' + othernamecode + '/Hpvetos/').on('value',function(snap) {
-          var hardpointbanz = [];
-                    snap.forEach(function(item) {
-                    var itemVal = item.val();
-                    hardpointbanz.push(itemVal);
+        var usernameq = firebase.database().ref().child(tableCell.id + '/name/');
+        usernameq.on('value', function(snapshot) {
+          username = snapshot.val();
+           document.getElementById("ff").innerHTML += "<br />" + username;
+           document.getElementById("ff").style.textAlign = "center";
+            document.getElementById("ff").style.fontSize = "30px";
+        });
+
+        var xpq = firebase.database().ref().child(tableCell.id + '/XP/');
+        xpq.on('value', function(snapshot) {
+          xp = snapshot.val();
+              document.getElementById("ff").innerHTML += "<br /> <br />XP: " + xp
+        });
+
+        var trylq = firebase.database().ref().child(tableCell.id + '/TryLs/');
+        trylq.on('value', function(snapshot) {
+          trials = snapshot.val();
+          document.getElementById("ff").innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTryLs: " + trials ;
 
 
-                        });
-                        if(hardpointbanz[0] == true) //forrest
-                        {
+        });
 
-                        }
-                        else{
-                          document.getElementById("hpforrest").src = "Mam/x.png";
-                        }
+        var earningsq = firebase.database().ref().child(tableCell.id + '/Earnings/');
+        earningsq.on('value', function(snapshot) {
+          earnings = snapshot.val();
+          document.getElementById("ff").innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Earnings: " + earnings;
 
-                        if(hardpointbanz[1] == true) //gibralter
-                        {
 
-                        }
-                        else{
-document.getElementById("hpgibralter").src = "Mam/x.png";
-                        }
-
-                        if(hardpointbanz[2] == true) //london
-                        {
-
-                        }
-                        else{
-document.getElementById("hplondon").src = "Mam/x.png";
-                        }
-
-                        if(hardpointbanz[3] == true) //saint
-                        {
-
-                        }
-                        else{
-                          document.getElementById("hpsaint").src = "Mam/x.png";
-
-                        }
-
-                        if(hardpointbanz[4] == true) //valkrie
-                        {
-
-                        }
-                        else{
-                          document.getElementById("hpvalkrie").src = "Mam/x.png";
-                        }
-
-                        hardpointvetos = hardpointbanz[5];
-
-                  });
+        });
 
 
 
-          database.ref(teamcode + '/' + othernamecode + '/Sndvetos/').on('value',function(snap) {
-            var Sndbanz = [];
-                      snap.forEach(function(item) {
-                      var itemVal = item.val();
-                      Sndbanz.push(itemVal);
+                var psnq = firebase.database().ref().child(tableCell.id + '/PSN/');
+                psnq.on('value', function(snapshot) {
+                  psn = snapshot.val();
+                  document.getElementById("ff").innerHTML += "<br /><br /><br />";
+                  var img = document.createElement('img');
+                  img.src = "Images/psn.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
 
+                  //   document.getElementById("ff").innerHTML += psn;
+psnlength = psn.length;
 
-                          });
-                          if(Sndbanz[0] == true) //forrest
-                          {
-
-                          }
-                          else{
-                            document.getElementById("sndforrest").src = "Mam/x.png";
-                          }
-
-                          if(Sndbanz[1] == true) //london
-                          {
-
-                          }
-                          else{
-  document.getElementById("sndlondon").src = "Mam/x.png";
-                          }
-
-                          if(Sndbanz[2] == true) //saint
-                          {
-
-                          }
-                          else{
-  document.getElementById("sndsaint").src = "Mam/x.png";
-                          }
-
-                          if(Sndbanz[3] == true) //uss
-                          {
-
-                          }
-                          else{
-                            document.getElementById("snduss").src = "Mam/x.png";
-
-                          }
-
-                          if(Sndbanz[4] == true) //valkrie
-                          {
-
-                          }
-                          else{
-                            document.getElementById("sndvalkie").src = "Mam/x.png";
-                          }
-                          sndvetos = Sndbanz[5];
-
-                    });
-
-
-                              database.ref(teamcode + '/' + othernamecode + '/CTFvetos/').on('value',function(snap) {
-                                var ctfbanz = [];
-                                          snap.forEach(function(item) {
-                                          var itemVal = item.val();
-                                          ctfbanz.push(itemVal);
-
-
-                                              });
-                                              if(ctfbanz[0] == true) //forrest
-                                              {
-
-                                              }
-                                              else{
-                                                document.getElementById("ctfflak").src = "Mam/x.png";
-                                              }
-
-                                              if(ctfbanz[1] == true) //flak
-                                              {
-
-                                              }
-                                              else{
-                      document.getElementById("ctfforrest").src = "Mam/x.png";
-                                              }
-
-                                              if(ctfbanz[2] == true) //london
-                                              {
-
-                                              }
-                                              else{
-                      document.getElementById("ctflondon").src = "Mam/x.png";
-                                              }
-
-                                                ctfvetos = ctfbanz[5];
-
-                                        });
-
-
-
-
-
-}
-
-function hpfban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/vetoleft/').once('value').then(function(snapshot) {
-     hardpointvetos = snapshot.val();
-
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/forrest/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-if(iftrue == "false")
+if(psn == "")
 {
 
 }
 else{
-  if(hardpointvetos != 0)
-  {
-var nhpv = hardpointvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({forrest: 'false'});
-    firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').update({forrest: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({vetoleft: nhpv});
-  }
+  div.appendChild(img);
+   document.getElementById("ff").innerHTML += psn;
 
 }
 
+                });
 
-     });
+                var xblq = firebase.database().ref().child(tableCell.id + '/XBL/');
+                xblq.on('value', function(snapshot) {
+                  xbl = snapshot.val();
 
-    // ...
-  });
-}
-
-
-
-function hplban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/vetoleft/').once('value').then(function(snapshot) {
-     hardpointvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/london/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-  if(iftrue == "false")
-  {
-
-  }
-  else{
-  if(hardpointvetos != 0)
-  {
-  var nhpv = hardpointvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({london: 'false'});
-        firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').update({london: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({vetoleft: nhpv});
-  }
-
-  }
+                  document.getElementById("ff").innerHTML += "<br />";
+                  var img = document.createElement('img');
+                  img.src = "Images/xbl.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
 
 
-     });
-    // ...
-  });
-}
+                     if(xbl == "")
+                     {
 
-function hpgban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/vetoleft/').once('value').then(function(snapshot) {
-     hardpointvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/gibralter/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-  if(iftrue == "false")
-  {
-
-  }
-  else{
-  if(hardpointvetos != 0)
-  {
-  var nhpv = hardpointvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({gibralter: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({vetoleft: nhpv});
-        firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').update({gibralter: 'false'});
-  }
-
-  }
+                     }
+                     else{
+                        document.getElementById("ff").innerHTML += xbl;
+                         div.appendChild(img);
+                     }
 
 
-     });
-    // ...
-  });
-}
-
-function hpsban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/vetoleft/').once('value').then(function(snapshot) {
-     hardpointvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/saint/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-   if(iftrue == "false")
-   {
-
-   }
-   else{
-   if(hardpointvetos != 0)
-   {
-   var nhpv = hardpointvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({saint: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').update({saint: 'false'});
-   }
-
-   }
 
 
-     });
-  });
-}
+                });
 
-function hpvban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/vetoleft/').once('value').then(function(snapshot) {
-     hardpointvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/valkrie/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
+                var tq = firebase.database().ref().child(tableCell.id + '/twitter/');
+                tq.on('value', function(snapshot) {
+                  twitter = snapshot.val();
 
-  if(iftrue == "false")
-  {
+                  document.getElementById("ff").innerHTML += "<br />";
+                  var img = document.createElement('img');
+                  img.src = "Images/twitter.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
+                     if(twitter == "")
+                     {
+                     }
+                     else{
+                        div.appendChild(img);
+                        document.getElementById("ff").innerHTML += twitter;
+                     }
+                });
 
-  }
-  else{
-  if(hardpointvetos != 0)
-  {
-  var nhpv = hardpointvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({valkrie: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Hpvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Hpvetos/').update({valkrie: 'false'});
-  }
+                var array_name = [];
+                database.ref(userID + "/Following/").once('value',function(snap) {
+                  var check = false;
+                                snap.forEach(function(item) {
+                                var itemVal = item.val();
+                                array_name.push(itemVal);
+                                followcount++;
 
-  }
+                              });
 
+                              for(var i = 0; i < array_name.length; i++)
+                              {
+                                if(array_name[i].otheruserID == tableCell.id)
+                                {
+                                  check = true;
+                                }
+                              }
 
-     });
-    // ...
-  });
-}
-
-////////
-
-function sndfban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/vetoleft/').once('value').then(function(snapshot) {
-     sndvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/forrest/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-   if(iftrue == "false")
-   {
-
-   }
-   else{
-   if(sndvetos != 0)
-   {
-   var nhpv = sndvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({forrest: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').update({forrest: 'false'});
-   }
-
-   }
+                              if(check == true)
+                              {
+                                var tbl = document.createElement('table');
+                                  var row = tbl.insertRow(0);
+                                      var cell11 = row.insertCell(0);
 
 
-     });
-    // ...
-  });
+
+                                      row.style.backgroundColor = "#1aa0e0";
+                                      row.style.height = "50px";
+                                      row.style.width = "600px";
+                                      row.style.borderRadius = "25px";
+
+
+                                            cell11.innerHTML = "UnFollow";
+                                            cell11.style.textAlign = "center";
+                                            cell11.style.backgroundColor = "grey";
+                                            cell11.style.height="50px;"
+                                            cell11.style.width="150px;"
+                                            cell11.id = "idkklol";
+                                            cell11.onclick = function () {
+                                                      Unfollow(this);
+                                                  };
+
+
+                                            var div = document.getElementById('ff');
+                                               div.appendChild(tbl);
+                              }
+                              else{
+                                var tbl = document.createElement('table');
+                                  var row = tbl.insertRow(0);
+                                      var cell11 = row.insertCell(0);
+
+
+
+                                      row.style.backgroundColor = "#1aa0e0";
+                                      row.style.height = "50px";
+                                      row.style.width = "600px";
+                                      row.style.borderRadius = "25px";
+
+
+                                            cell11.innerHTML = "Follow";
+                                            cell11.style.textAlign = "center";
+                                            cell11.style.backgroundColor = "grey";
+                                            cell11.style.height="50px;"
+                                            cell11.style.width="150px;"
+                                            cell11.id = "idkklol";
+                                            cell11.onclick = function () {
+                                                      follow(this);
+                                                  };
+
+
+                                            var div = document.getElementById('ff');
+                                               div.appendChild(tbl);
+
+                              }
+
+                            })
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
 
-function sndlban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/vetoleft/').once('value').then(function(snapshot) {
-     sndvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/london/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
+function follow(tableText){
 
-   if(iftrue == "false")
-   {
+  var otheruserID = "fofnoqe";
+    var userID = "fofnoqe";
+  firebase.database().ref(userID + '/Following/' + otheruserID).update({otheruserID});
+  document.getElementById("idkklol").innerHTML = "UnFollow";
 
-   }
-   else{
-   if(sndvetos != 0)
-   {
-   var nhpv = sndvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({london: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').update({london: 'false'});
-   }
-
-   }
-
-
-     });
-  });
-
+  cell11.onclick = function () {
+            Unfollow(this);
+        };
 
 }
 
-function sndsban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/vetoleft/').once('value').then(function(snapshot) {
-     sndvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/saint/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-   if(iftrue == "false")
-   {
-
-   }
-   else{
-   if(sndvetos != 0)
-   {
-   var nhpv = sndvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({saint: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').update({saint: 'false'});
-   }
-
-   }
+function Unfollow(tableText){
+  var otheruserID = "fofnoqe";
+    var userID = "fofnoqe";
+firebase.database().ref(userID + '/Following/' + otheruserID).remove();
+  document.getElementById("idkklol").innerHTML = "Follow";
+  cell11.onclick = function () {
+            follow(this);
+        };
 
 
-     });
-    // ...
-  });
 
 
 }
+</script>
 
-function snduban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/vetoleft/').once('value').then(function(snapshot) {
-     sndvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/uss/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-   if(iftrue == "false")
-   {
-
-   }
-   else{
-   if(sndvetos != 0)
-   {
-   var nhpv = sndvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({uss: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').update({uss: 'false'});
-   }
-
-   }
-
-
-     });
-    // ...
-  });
-
-
-}
-
-function sndvban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/vetoleft/').once('value').then(function(snapshot) {
-     sndvetos = snapshot.val();
-     return firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/valkie/').once('value').then(function(snapshot) {
-       var iftrue = snapshot.val();
-
-   if(iftrue == "false")
-   {
-
-   }
-   else{
-   if(sndvetos != 0)
-   {
-   var nhpv = sndvetos - 1;
-    firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({valkrie: 'false'});
-      firebase.database().ref(teamcode + '/' + othernamecode + '/Sndvetos/').update({vetoleft: nhpv});
-          firebase.database().ref(othernamecode + '/' + teamcode + '/Sndvetos/').update({valkrie: 'false'});
-   }
-
-   }
-
-
-     });
-    // ...
-  });
-
-
-}
-
-///////
-
-function ctffban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/vetoleft/').once('value').then(function(snapshot) {
-     ctfvetos = snapshot.val();
-     if(ctfvetos != 0)
-     {
-   var nhpv = ctfvetos - 1;
-       firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({forrest: 'false'});
-         firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({vetoleft: nhpv});
-                   firebase.database().ref(othernamecode + '/' + teamcode + '/CTFvetos/').update({forrest: 'false'});
-     }
-    // ...
-  });
-
-
-}
-
-function ctflban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/vetoleft/').once('value').then(function(snapshot) {
-     ctfvetos = snapshot.val();
-     if(ctfvetos != 0)
-     {
-   var nhpv = ctfvetos - 1;
-       firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({london: 'false'});
-         firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({vetoleft: nhpv});
-                    firebase.database().ref(othernamecode + '/' + teamcode + '/CTFvetos/').update({london: 'false'});
-     }
-    // ...
-  });
-
-
-}
-
-function ctfflakban(){
-  return firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/vetoleft/').once('value').then(function(snapshot) {
-     ctfvetos = snapshot.val();
-     if(ctfvetos != 0)
-     {
-   var nhpv = ctfvetos - 1;
-       firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({flak: 'false'});
-         firebase.database().ref(teamcode + '/' + othernamecode + '/CTFvetos/').update({vetoleft: nhpv});
-                    firebase.database().ref(othernamecode + '/' + teamcode + '/CTFvetos/').update({flak: 'false'});
-     }
-    // ...
-  });
-
-
-}
-
-
-function hpve(){
-
-
-  if(TeamSeed < otherseed)
-  {
-
-
-
-
-       var mset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-       mset.once('value', function(snapshot) {
-         var ap = snapshot.val();
-
-
-    if(ap == false){
-      firebase.database().ref(teamcode + '/' + othernamecode + '/lowermap/').update({map: 'hard'});
-
-      firebase.database().ref(othernamecode + '/' + teamcode + '/lowermap/').update({map: 'hard'});
-
-    }
-
-       });
-  }
-  else{
-    var mapset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-    mapset.once('value', function(snapshot) {
-      var schmap = snapshot.val();
-
-
-if(schmap == false){
-  alert("Wait for the lower seed to choose map");
-}
-else{
-       firebase.database().ref(teamcode + '/' + othernamecode + '/highmap/').update({map: 'hard'});
-       firebase.database().ref(othernamecode + '/' + teamcode + '/highmap/').update({map: 'hard'});
-}
-    });
-  }
-}
-function sndve(){
-  if(TeamSeed < otherseed)
-  {
-
-
-
-       var mset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-       mset.once('value', function(snapshot) {
-         var ap = snapshot.val();
-
-
-    if(ap == false){
-      firebase.database().ref(teamcode + '/' + othernamecode + '/lowermap/').update({map: 'snd'});
-
-      firebase.database().ref(othernamecode + '/' + teamcode + '/lowermap/').update({map: 'snd'});
-
-    }
-
-       });
-  }
-  else{
-    var mapset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-    mapset.once('value', function(snapshot) {
-      var schmap = snapshot.val();
-
-
-  if(schmap == false){
-  alert("Wait for the lower seed to choose map");
-  }
-  else{
-       firebase.database().ref(teamcode + '/' + othernamecode + '/highmap/').update({map: 'snd'});
-       firebase.database().ref(othernamecode + '/' + teamcode + '/highmap/').update({map: 'snd'});
-  }
-    });
-
-
-
-  }
-
-}
-function ctfve(){
-  if(TeamSeed < otherseed)
-  {
-
-
-
-   var mset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-   mset.once('value', function(snapshot) {
-     var ap = snapshot.val();
-
-
-if(ap == false){
-  firebase.database().ref(teamcode + '/' + othernamecode + '/lowermap/').update({map: 'cap'});
-
-  firebase.database().ref(othernamecode + '/' + teamcode + '/lowermap/').update({map: 'cap'});
-
-}
-
-   });
-
-
-
-
-
-  }
-  else{
-    var mapset = firebase.database().ref().child(teamcode + "/" + othernamecode + '/lowermap/map/');
-    mapset.once('value', function(snapshot) {
-      var schmap = snapshot.val();
-
-
-if(schmap == false){
-  alert("Wait for the lower seed to choose map");
-}
-else{
-       firebase.database().ref(teamcode + '/' + othernamecode + '/highmap/').update({map: 'cap'});
-       firebase.database().ref(othernamecode + '/' + teamcode + '/highmap/').update({map: 'cap'});
-}
-    });
-  }
-
-}
-
-
-  </script>
 
 </head>
+<body onload="pagesetup();">
+<div id="head">
+  <div id="username">
 
-<body>
-<div id="container">
+  Username
 
-  <div id="header">
-    <center>
-      <img src="images/ngelogo.png" height="200px" width="300px"/>
-    </center>
-  </div>
-
-
-  <div id="niftbar">
 
   </div>
 
-  <div id="bodybody">
+<center>
 
+    <img id="headerlogo" src="Images/ngelogo.png" height="110px" width="110px" />
 
-    <center>
-      <h1 id="tn"> Type in the Team ID Code given to you below </h1>
+</center>
 
-      <input id ="teamid" type="teamid" placeholder="Team ID">
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <button onclick="checkteam();" id="teamhq">Enter Team HQ</button>
-    </center>
-
-
-    <div id="homeroster">
-        <h1 id="tname" style=" diplay: inline;"> </h1>
-    <p id="roster"></roster>
-    </div>
-
-    <div id="awayroster">
-      <h1 id="othername" style="margin-right: 100px; diplay: inline;"> </h1>
-      <p id="aroster"></roster>
-    </div>
-    <center>
-<div id="inter">
-
-      <button id="report" onclick="reportscore();"> Report Score </button>
-      <button id="lolz" onclick="dispute();"> Problem with Match </button>
-      <button id="lol" onclick="vetoo();"> Veto System </button>
-    <a href="bracket.htm" target="_blank"  ><button> Bracket </button></a>
-      <a href="www.google.com" target="_blank"  ><button> Rules </button></a>
-
-      <br />
-      <textarea id="texta"rows="4" cols="50">
-        Detail the problem with your match and include links:
-      </textarea><br />
-      <button id="reportsubmit" onclick="reportscoresubmit();"> Submit</button>
-
-      <br />
-
-  </div>
-<div id="veto">
-  <button onclick="hpve();" id="hpve"><h1> HardPoint maps </h1></button>
-  <br />
-
-  <button onclick="hpfban();"><img id="hpforrest" src="Mam/af.jpg" height= "175px" width="200px" /></button>
-
-  <button onclick="hplban();"><img id="hplondon" src="Mam/londondocks.jpg" height= "175px" width="200px" /></button>
-  <button onclick="hpsban();"><img id="hpsaint" src="Mam/smd.jpg" height= "175px" width="200px" /></button>
-  <button onclick="hpvban();"><img id="hpvalkrie" src="Mam/valkrie.jpg" height= "175px" width="200px" /></button>
-  <button onclick="hpgban();"><img id="hpgibralter" src="Mam/gibralter.jpg" height= "175px" width="200px" /></button>
-  </br>
-
-<button onclick="sndve();" id="sndve"><h1> SnD maps </h1></button>
-  <br />
-<button onclick="sndfban();"><img id="sndforrest" src="Mam/af.jpg" height= "175px" width="200px" /></button>
-
-<button  onclick="sndlban();"><img id="sndlondon" src="Mam/londondocks.jpg" height= "175px" width="200px" /></button>
-<button onclick="sndsban();"><img id="sndsaint" src="Mam/smd.jpg" height= "175px" width="200px" /></button>
-<button onclick="sndvban();"><img id="sndvalkie" src="Mam/valkrie.jpg" height= "175px" width="200px" /></button>
-<button onclick="snduban();"><img id="snduss" src="Mam/uss.png" height= "175px" width="200px" /></button>
-  <br />
-<button onclick="ctfve();" id="ctfve"><h1> CTF maps </h1></button>
-  <br />
-<button onclick="ctffban();"><img id="ctfforrest" src="Mam/af.jpg" height= "175px" width="200px" /></button>
-<button onclick="ctflban();"><img id="ctflondon" src="Mam/londondocks.jpg" height= "175px" width="200px" /></button>
-<button onclick="ctfflakban();"><img id="ctfflak" src="Mam/flak.png" height= "175px" width="200px" /></button>
-
-
-
-    </center>
-
-  </div>
-  </div>
+<div id="menu">
+  <img  src="Images/feed.png" height="40px" width="40px" />
+  &nbsp&nbsp
+  <img src="Images/alert.png" height="40px" width="40px" />
+    &nbsp&nbsp
+  <img  src="Images/message.png" height="40px" width="40px" />
+    &nbsp&nbsp
+  <img src="Images/shop.png" height="40px" width="40px" />
+    &nbsp&nbsp
+  <img  src="Images/signout.png" height="40px" width="40px" />
 </div>
 
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
-    authDomain: "poctest-c1a05.firebaseapp.com",
-    databaseURL: "https://poctest-c1a05.firebaseio.com",
-    projectId: "poctest-c1a05",
-    storageBucket: "poctest-c1a05.appspot.com",
-    messagingSenderId: "434071952145"
-  };
-  firebase.initializeApp(config);
-  </script>
+</div>
+
+<div id="feed">
+  <div id="search">
+    <img id="mags" src="Images/mag.png" height="30px" width="30px" />
+
+      <input onkeyup="searchscript()" id ="usersearch" placeholder=""> <br />
+
+
+  </div>
+<br /><br />
+  <div id="ff">
+
+  <table id="myTable">
+
+
+  </table>
+  </div>
+  <div id="post">
+    <br />
+    <input onkeyup="" id ="usertype" placeholder=""> <br />
+    <button id="typesend"> Send </button>
+  </div>
+
+</div>
+
+<div id="utility">
+  <table>
+    <tr>
+    </tr>
+
+  </table>
+
+</div>
+<div id="footer">
+  <div id="ftext">
+  Privacy Policy &nbsp&nbsp&nbsp
+  Terms of Service &nbsp&nbsp&nbsp
+  Advertise &nbsp&nbsp&nbsp
+  Contact Us
+</div>
+
+
+</div>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+      authDomain: "poctest-c1a05.firebaseapp.com",
+      databaseURL: "https://poctest-c1a05.firebaseio.com",
+      projectId: "poctest-c1a05",
+      storageBucket: "poctest-c1a05.appspot.com",
+      messagingSenderId: "434071952145"
+    };
+    firebase.initializeApp(config);
+    </script>
 </body>
+
 
 </html>
