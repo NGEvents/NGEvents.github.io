@@ -299,13 +299,13 @@ function newal(){
   var postfill = [];
 
   database.ref(userID + '/Following/').on('value',function(snap) {
-
+  postfill = [];
               snap.forEach(function(item) {
 
               var droptop = item.val();
 
               database.ref(droptop.ch + '/Myposts/').on('value',function(snap) {
-                  postfill = [];
+
                           snap.forEach(function(item) {
 
                           var newpost = item.val();
