@@ -318,7 +318,7 @@ function newal(){
 
 
             })
-            postfill.sort(sortNumber);
+          postfill = postfill.sort((a, b) => a - b);
             document.getElementById("ff").innerHTML = "";
 
              var tbl = document.createElement('table');
