@@ -680,7 +680,7 @@ else{
                                             cell11.style.backgroundColor = "grey";
                                             cell11.style.height="50px;"
                                             cell11.style.width="150px;"
-                                            cell11.id = "idkklol";
+                                            cell11.id = otheruserID;
                                             cell11.onclick = function () {
                                                       follow(this);
                                                   };
@@ -711,23 +711,18 @@ function follow(tableText){
 
   var otheruserID = "fofnoqe";
     var userID = "fofnoqe";
-  firebase.database().ref(userID + '/Following/' + otheruserID).update({otheruserID});
+  firebase.database().ref(userID + '/Following/' + tableText.id).update({otheruserID});
   document.getElementById("idkklol").innerHTML = "UnFollow";
 
-  cell11.onclick = function () {
-            Unfollow(this);
-        };
+
 
 }
 
 function Unfollow(tableText){
   var otheruserID = "fofnoqe";
     var userID = "fofnoqe";
-firebase.database().ref(userID + '/Following/' + otheruserID).remove();
+firebase.database().ref(userID + '/Following/' + tableText.id).remove();
   document.getElementById("idkklol").innerHTML = "Follow";
-  cell11.onclick = function () {
-            follow(this);
-        };
 
 
 
