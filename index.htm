@@ -617,7 +617,8 @@ var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
 
 
 var updates = {};
-  updates[usernameids[i] + '/posts/' + newPostKey] = data;
+var stupid = usernameids[i];
+  updates[stupid + '/posts/' + newPostKey] = data;
   updates[userID + '/posts/' + newPostKey] = data;
 
 return firebase.database().ref().update(updates);
