@@ -203,12 +203,34 @@ border-radius: 10px;
 var unames = [];
 var followcount = 1;
 var pics = []
+var userID;
+var usname;
+var picpicpic
 function pagesetup(){
   var database = firebase.database();
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
-          user= user;
+        userID = firebase.auth().currentUser.uid;
+
+        var trylq = firebase.database().ref().child(userID + '/name/');
+        trylq.on('value', function(snapshot) {
+          usname = snapshot.val();
+          document.getElementById.("username").innerHTML = usname;
+
+        });
+
+        var earningsq = firebase.database().ref().child(userID + '/pic/');
+        earningsq.on('value', function(snapshot) {
+          picpicpic = snapshot.val();
+
+
+
+        });
+
+
+
+
         }
         else{
           window.location.href = "signin.htm";
@@ -221,8 +243,8 @@ function pagesetup(){
 
 function searchscript(){
 
-//  userId = firebase.auth().currentUser.uid;
-var userID = "fofnoqe";
+  userID = firebase.auth().currentUser.uid;
+
 var imgg = document.createElement('imgg');
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
@@ -563,6 +585,49 @@ function signout(){
   console.error('Sign Out Error', error);
 });
 }
+
+function postmessage(){
+  var usermessage = document.getElementById("typesend").value;
+
+  database.ref('/Users/').on('value',function(snap) {
+      var usernameids = [];
+      var data =
+      [
+        username: usname;
+        userid: userID;
+        textL usermessage;
+        pic: picpicpic;
+      ];
+              snap.forEach(function(item) {
+
+              var id = item.val();
+              usernameids.push(id);
+
+
+
+
+            })
+
+
+            for(var i = 0; i < usernameids.length; i++)
+            {
+var newPostKey = firebase.database().ref().child(usernameids[i] + '/posts/').push().key;
+var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+
+
+var updates = {};
+  updates[usernameids[i] + '/posts/' + newPostKey] = data;
+  updates[userID + '/posts/' + newPostKey] = data;
+
+return firebase.database().ref().update(updates);
+
+
+            }
+
+
+
+})
+}
 </script>
 
 
@@ -615,7 +680,7 @@ function signout(){
   <div id="post">
     <br />
     <input onkeyup="" id ="usertype" placeholder=""> <br />
-    <button id="typesend"> Send </button>
+    <button onclick="postmessage();" id="typesend"> Send </button>
   </div>
 
 </div>
