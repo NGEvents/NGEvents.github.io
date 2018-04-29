@@ -1,6 +1,6 @@
 <!-- All code written on this site is sole property of National Gaming Events
 Developer: Allen Olsen Kendrick (zNine) Twitter @MoazNine
- Version Number='0.0.0.0.1'
+ Version Number='0.0.0.0.2'
  Version Update='0'
  Version Name = 'AfterMath'
  Version Publish Date = '04-29-2018'
@@ -249,7 +249,8 @@ var followcount = 1;
 var pics = []
 var userID;
 var usname;
-var picpicpic
+var picpicpic;
+var otheruserID;
 function pagesetup(){
   var database = firebase.database();
       firebase.auth().onAuthStateChanged(function(user) {
@@ -419,6 +420,7 @@ var imgg = document.createElement('imgg');
                 else if(usertext.toLowerCase() == newnew.toLowerCase()){
                 unames.push(usernames);
 
+
               }
 
 
@@ -453,6 +455,7 @@ for(var i = 0; i < unames.length; i++){
   cell1.innerHTML = unames[i].name;
   cell1.style.textAlign = "center";
   cell1.id = unames[i].id;
+  otheruserID = unames[i].id;
   cell1.onclick = function () {
             tableText(this);
         };
@@ -475,8 +478,7 @@ cell1.appendChild(imgg);
 
 function tableText(tableCell) {
   //  alert(tableCell.id);
-  var otheruserID = "fofnoqe";
-    var userID = "fofnoqe";
+
   document.getElementById('ff').innerHTML ="";
     var pic;
     var username;
