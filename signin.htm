@@ -134,7 +134,11 @@ function login(){
       if (user) {
         usersRef = firebaseref.child(user.uid);
         firebase.database().ref('Users/' + username).set({
-          email: email
+          email: email,
+          pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+          id: user.uid,
+          name: username,
+
         });
         firebase.database().ref(user.uid).set({
          name: username,
@@ -168,7 +172,7 @@ function login(){
 
 
   function changepage(){
-
+ window.location.href = "index.htm";
 
   }
 
