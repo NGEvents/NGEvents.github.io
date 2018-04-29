@@ -588,7 +588,8 @@ function signout(){
 
 function postmessage(){
   var usermessage = document.getElementById("typesend").value;
-
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
   database.ref(userID + '/Followers/').on('value',function(snap) {
       var usernameids = [];
       var data =
