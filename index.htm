@@ -962,23 +962,6 @@ else if(buttoncheck != -1){
 else{
 
 
-
-  database.ref(userID + '/Followers/').on('value',function(snap) {
-      var usernameids = [];
-
-              snap.forEach(function(item) {
-
-              var id = item.val();
-              usernameids.push(id);
-
-
-
-
-            })
-
-
-            for(var i = 0; i < usernameids.length; i++)
-            {
               var data =
               {
                 username: usname,
@@ -993,22 +976,22 @@ else{
 
               }
               var stupid = usernameids[i];
-var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
-var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+//var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
+//var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
 var newuserkey = firebase.database().ref().child(userID + '/Myposts/').push().key;
 
 
 
 var updates = {};
 
-  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
-  updates[userID + '/posts/' + newPostKey] = data;
+//  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+//  updates[userID + '/posts/' + newPostKey] = data;
   updates[userID + '/Myposts/' + newuserkey] = data;
 
 return firebase.database().ref().update(updates);
 
 
-            }
+
 
 
 
