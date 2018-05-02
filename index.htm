@@ -10,7 +10,7 @@ Developer Notes: -->
 <head>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 <style type="text/css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 body{
   background-color: #333333;
 
@@ -280,13 +280,28 @@ function pagesetup(){
 
         }
         else{
-         window.location.href = "signin.htm";
+      //   window.location.href = "signin.htm";
 
-      //  userID = "LfPm0EWLSLU1rYGaMv0v89Juu2x1";
+       userID = "8FXxTwS2fwYveChBKNNIlStbQbu1";
+       var trylq = firebase.database().ref().child(userID + '/name/');
+       trylq.on('value', function(snapshot) {
+         usname = snapshot.val();
+         document.getElementById("username").innerHTML = usname;
+
+       });
+
+       var earningsq = firebase.database().ref().child(userID + '/pic/');
+       earningsq.on('value', function(snapshot) {
+         picpicpic = snapshot.val();
+
+
+
+       });
       //  usname = "zNinee";
       //  picpicpic = "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758";
 
         //fillwindwow();
+          newal();
         }
       })
 
@@ -296,124 +311,124 @@ function pagesetup(){
 
 function newal(){
     var database = firebase.database();
-  var postfill = [];
-  var id = [];
+    var followerfill = [];
 
-  database.ref(userID + '/Following/').on('value',function(snap) {
-  postfill = [];
-   id = [];
-              snap.forEach(function(item) {
+    var postfill = [];
+    database.ref(userID + '/Following/').once('value', function(snap) {
+      snap.forEach(function(item) {
+        followerfill.push(item.val());
+      })
 
-              var droptop = item.val();
-              id.push(droptop);
+      for(var x = 0 ; x < followerfill.length; x++)
+        {
+          database.ref(followerfill[x].ch + '/Myposts/').on('value', function(snap) {
 
+            snap.forEach(function(item) {
+              postfill.push(item.val());
+            })
 
+            if(x == followerfill.length)
+            {
+              immad(postfill);
+            }
 
-
-            });
-
-            for(var x = 0; x < id.length; x++){
-              var lul = id[x].ch;
-              database.ref(lul + '/Myposts/').on('value',function(snap) {
-                          snap.forEach(function(item) {
-
-                          var newpost = item.val();
-                          postfill.push(newpost);
-
-
-
-                        });
-
-
-                        postfill = postfill.sort((a, b) => a - b);
-                          document.getElementById("ff").innerHTML = "";
-                           var tbl = document.createElement('table');
-                           var l = 0;
-
-                          for(var i = postfill.length -1; i > -1; i--){
-                          var header = tbl.createTHead();
-
-
-                            var row = header.insertRow(l);
-                            row.style.backgroundColor = "#1aa0e0";
-                            row.style.height = "100px";
-                            row.style.width = "700px";
-                            l++
-
-                            var cell1 = row.insertCell(0);
-
-                            cell1.colspan = "2";
-                            cell1.style.width = "700px";
-                            cell1.style.height = "100px";
-                            cell1.style.borderBottomLeftRadius = "0px";
-                                  cell1.style.borderBottomRightRadius = "0px";
-                                  cell1.style.borderTopLeftRadius = "25px";
-                                        cell1.style.borderTopRightRadius = "25px";
-                              cell1.style.fontSize = "40px";
-                              cell1.style.fontFamily = "sans-serif";
-                              var img = document.createElement('img');
-                              img.src = postfill[i].pic;
-                              img.style.height = "100px";
-                              img.style.width = "100px";
-                              img.style.float = "left";
-                              img.style.borderColor = "white";
-                              img.style.borderWidth = "Thick";
-
-                              var sspan = document.createElement('span');
-                              sspan.innerHTML =  postfill[i].text;
-                              sspan.style.fontSize = "10px";
-                              sspan.style.color = "blue";
-                              sspan.id = "textext";
-
-                                            //cell1.style.textAlign = "center";
-                            cell1.id = postfill[i].id;
-                          //  cell1.onclick = function () {
-                          //            tableText(this);
-                            //      };
-
-
-
-                                              var row2 = header.insertRow(l);
-                                              l++;
-                                                var cell2 = row2.insertCell(0);
-
-                                              row2.style.height = "30px";
-                                              row2.style.width = "700px";
-                                              row2.style.backgroundColor = "#1aa0e0";
-                                              cell2.style.width = "350px";
-                                              cell2.style.height = "30px";
-                                                cell2.style.borderBottomLeftRadius = "25px";
-                                                      cell2.style.borderBottomRightRadius = "25px";
-                                                      cell2.style.textAlign = "center";
-                                                      cell2.style.color = "white";
-                                                      cell2.style.textAlign = "center";
-                                                        cell2.onclick = function () {
-                                                                 goodluck(postfill[i]);
-                                                              };
-                                                      cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
-
-
-                          cell1.appendChild(img);
-                                cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
-                          //sspan.
-                            var div = document.getElementById('ff');
-                               div.appendChild(tbl);
-                          }
-
-
-
-                    });
-
-
-
-
-
-
-                      }
             })
 
 
-          }
+
+        }
+
+
+})
+
+
+}
+
+function immad(letstry){
+  var postfill = letstry;
+
+
+var checkcheck = 0;
+document.getElementById("ff").innerHTML = "";
+var posttable = document.createElement('table');
+for(var i = 0; i < postfill.length; i++){
+  var row = posttable.insertRow(checkcheck);
+  row.style.backgroundColor = "#1aa0e0";
+  row.style.height = "100px";
+  row.style.width = "700px";
+  checkcheck++;
+  var cell1 = row.insertCell(0);
+  cell1.colspan = "2";
+  cell1.style.width = "700px";
+  cell1.style.height = "100px";
+  cell1.style.borderBottomLeftRadius = "0px";
+        cell1.style.borderBottomRightRadius = "0px";
+        cell1.style.borderTopLeftRadius = "25px";
+              cell1.style.borderTopRightRadius = "25px";
+    cell1.style.fontSize = "40px";
+    cell1.style.fontFamily = "sans-serif";
+    var img = document.createElement('img');
+    img.src = postfill[i].pic;
+    img.style.height = "100px";
+    img.style.width = "100px";
+    img.style.float = "left";
+    img.style.borderColor = "white";
+    img.style.borderWidth = "Thick";
+
+    var sspan = document.createElement('span');
+    sspan.innerHTML =  postfill[i].text;
+    sspan.style.fontSize = "10px";
+    sspan.style.color = "blue";
+    sspan.id = "textext";
+
+                  //cell1.style.textAlign = "center";
+  cell1.id = postfill[i].id;
+//  cell1.onclick = function () {
+//            tableText(this);
+  //      };
+
+
+
+                    var row2 = posttable.insertRow(checkcheck);
+                    checkcheck++;
+                      var cell2 = row2.insertCell(0);
+
+                    row2.style.height = "30px";
+                    row2.style.width = "700px";
+                    row2.style.backgroundColor = "#1aa0e0";
+                    cell2.style.width = "350px";
+                    cell2.style.height = "30px";
+                      cell2.style.borderBottomLeftRadius = "25px";
+                            cell2.style.borderBottomRightRadius = "25px";
+                            cell2.style.textAlign = "center";
+                            cell2.style.color = "white";
+                            cell2.style.textAlign = "center";
+                              cell2.onclick = function () {
+                                       goodluck(postfill[i]);
+                                    };
+                            cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+
+
+cell1.appendChild(img);
+      cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+
+//sspan.
+  var div = document.getElementById('ff');
+     div.appendChild(posttable);
+
+
+if(i = postfill.length)
+{
+//  postfill = [];
+}
+
+
+}
+
+
+
+ }
+
 
 
 
@@ -423,13 +438,8 @@ var postfill = [];
   database.ref(userID + '/posts/').on('value',function(snap) {
       postfill = [];
               snap.forEach(function(item) {
-
               var droptop = item.val();
-
-
                 postfill.push(droptop);
-
-
             })
             document.getElementById("ff").innerHTML = "";
 
@@ -603,7 +613,7 @@ cell1.appendChild(imgg);
 function tableText(tableCell) {
   //  alert(tableCell.id);
 
-  document.getElementById('ff').innerHTML ="";
+  document.getElementById('ff').innerHTML = "";
     var pic;
     var username;
     var xp;
@@ -613,7 +623,7 @@ function tableText(tableCell) {
     var psn;
     var xbl;
     var earnings
-var twitter;
+    var twitter;
     var firebaseref = firebase.database().ref();
     var database = firebase.database();
     var psnlength;
@@ -645,7 +655,7 @@ var twitter;
         var xpq = firebase.database().ref().child(tableCell.id + '/xp/');
         xpq.on('value', function(snapshot) {
           xp = snapshot.val();
-              document.getElementById("ff").innerHTML += "<br /> <br />XP: " + xp
+              document.getElementById("ff").innerHTML += "<br /> <br />XP: " + xp ;
         });
 
         var trylq = firebase.database().ref().child(tableCell.id + '/TryLs/');
@@ -789,9 +799,9 @@ else{
                                                div.appendChild(tbl);
                               }
                               else{
-                                var tbl = document.createElement('table');
-                                  var row = tbl.insertRow(0);
-                                      var cell11 = row.insertCell(0);
+                                var tblee = document.createElement('table');
+                                  var row = tblee.insertRow(0);
+                                      var cel = row.insertCell(0);
 
 
 
@@ -801,19 +811,20 @@ else{
                                       row.style.borderRadius = "25px";
 
 
-                                            cell11.innerHTML = "Follow";
-                                            cell11.style.textAlign = "center";
-                                            cell11.style.backgroundColor = "grey";
-                                            cell11.style.height="50px;"
-                                            cell11.style.width="150px;"
-                                            cell11.id = otheruserID;
-                                            cell11.onclick = function () {
-                                                      follow(this);
+                                            cel.innerHTML = "Follow";
+                                            cel.style.textAlign = "center";
+                                            cel.style.backgroundColor = "grey";
+                                            cel.style.height="50px;"
+                                            cel.style.width="150px;"
+                                            cel.id = otheruserID;
+
+                                            cel.onclick = function () {
+                                                      follow(cel.id);
                                                   };
 
 
                                             var div = document.getElementById('ff');
-                                               div.appendChild(tbl);
+                                               div.appendChild(tblee);
 
                               }
 
@@ -835,9 +846,9 @@ else{
 
 function follow(tableText){
 
-var ch = tableText.id;
-  firebase.database().ref(userID + '/Following/' + tableText.id).update({ch});
-  firebase.database().ref(tableText.id + '/Followers/' + userID).update({ch});
+var ch = tableText;
+  firebase.database().ref(userID + '/Following/' + tableText).update({ch});
+  firebase.database().ref(tableText + '/Followers/' + userID).update({ch});
   document.getElementById(otheruserID).innerHTML = "UnFollow";
 
 //  database.ref(userID + '/userpost/').on('value',function(snap) {
@@ -877,7 +888,7 @@ function signout(){
 
 function monthscript(month){
   var trolo = month + 1;
-  switch(month){
+  switch(trolo){
               case 1:
                   return "January";
                   break;

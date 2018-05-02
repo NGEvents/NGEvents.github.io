@@ -152,6 +152,8 @@ function login(){
          pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
          twitter: "",
        });
+
+  firebase.database().ref(user.uid + '/Following/' + user.id).update({user.uid});
   isSuccessful = true;
 
   setTimeout(function () {
