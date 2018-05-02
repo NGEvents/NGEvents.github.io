@@ -188,11 +188,31 @@ var fa = [];
           cell1.style.width = "700px";
           cell1.style.height = "100px";
           cell1.style.borderRadius = "20px";
-
+var che;
+          if(n - fa[i].time < 86400000)
+          {
+          che = "Less than one day ago"  ;
+          }
+          else if(n - fa[i].time < 172,800,000)
+          {
+            che = "Less than two day ago"  ;
+          }
+          else if(n - fa[i].time < 345,600,000)
+          {
+            che = "Less than 4 day ago"  ;
+          }
+          else if(n - fa[i].time < 432,000,000)
+          {
+            che = "Less than 5 day ago"  ;
+          }
+          else if(n - fa[i].time < 518,400,000)
+          {
+              che = "Less than 6 day ago"  ;
+          }
 
             cell1.style.fontSize = "20px";
             cell1.style.fontFamily = "sans-serif";
-                cell1.innerHTML += "Name: " + fa[i].name + '<span style="float: right">' + "PSN: "  +fa[i].psn + '</span>' + "<br />Role: " + fa[i].role + '<span style="float: right">' + "Twitter: " + fa[i].twitter + '</span>';
+                cell1.innerHTML += "Name: " + fa[i].name + '<span style="float: right">' + "PSN: "  +fa[i].psn + '</span>' + "<br />Role: " + fa[i].role + '<span style="float: right">' + "Twitter: " + fa[i].twitter + '</span>' + "<br /> <center> " + che + "</center>";
             //sspan.
               var div = document.getElementById('ff');
                  div.appendChild(fatable);
@@ -239,6 +259,13 @@ else{
    time: n,
 
  });
+
+ var fn = document.getElementById("FirstName").innerHTML = "";
+ var psn = document.getElementById("PSN").innerHTML = "";
+ var role = document.getElementById("Role").innerHTML = "";
+ var twitter = document.getElementById("Twitter").innerHTML = "";
+
+
 }
 
 
@@ -261,7 +288,8 @@ else{
     <input class="dd" id ="Role" placeholder="Role"> <br /><br />
     <input class="dd" id ="Twitter" placeholder="Twitter"> <br /><br />
 
-    <input id="checkBox" type="checkbox">I am older than 13 years of age <br />
+    <input id="checkBox" type="checkbox">I understand that after 7 days my free agent post will no longer be visible.
+     I also understand I am older than 13 years of age <br />
     <button id="submit" onclick="su();"> Submit </button>
   </center>
 
