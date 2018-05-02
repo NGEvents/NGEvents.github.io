@@ -1,6 +1,6 @@
 <!-- All code written on this site is sole property of National Gaming Events
 Developer: (zNine) Twitter @MoazNine
- Version Number='9.0.9'
+ Version Number='9.0.10'
  Version Update='1'
  Version Name = 'AfterMath'
  Version Publish Date = '05-01-2018'
@@ -176,7 +176,7 @@ border: 0;
 function pagesetup(){
     var database = firebase.database();
 
-  database.ref('/FreeAgent/').on('value', function(snap) {
+  database.ref('/FreeAgent/').once('value', function(snap) {
     var fa = [];
     snap.forEach(function(item) {
 
