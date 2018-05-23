@@ -5,6 +5,7 @@ Developer: Allen Olsen Kendrick (zNine) Twitter @MoazNine
  Version Name = 'AfterMath'
  Version Publish Date = '04-29-2018'
 Developer Notes: -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,6 +72,7 @@ width: 98.2%;
 background-color: #1aa0e0;
 color: white;
 text-align: center;
+margin-top: 10px;
 border-top: 2px solid white;
 border-left: 2px solid white;
 border-right: 2px solid white;
@@ -165,6 +167,16 @@ body{
 
 }
 
+#postt{
+  height: 50px;
+  width: 500px;
+  background-color: #1aa0e0;
+  display: block;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+margin-top: 545px;
+}
+
 #usertype{
   background-color: white;
   height: 30px;
@@ -179,6 +191,20 @@ body{
   float: left;
 
 
+}
+
+#usertypee{
+  background-color: white;
+  height: 30px;
+  width: 380px;
+  display: block;
+
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: -13px;
+  color: black;
+  font-size: 20px;
+  float: left;
 }
 #typesend{
   display: block;
@@ -196,6 +222,25 @@ margin-top: -29px;
 font-size: 20px;
 font-family: sans-serif;
 border-radius: 10px;
+}
+
+#typesendd{
+  display: block;
+  background-color: white; /* Green */
+border-style: 1px;
+border-color: white;
+color: #1aa0e0;
+float: right;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+margin-right: 20px;
+
+margin-top: -34.5px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+margin-bottom: 0px;
 }
 
 .dropdown-content {
@@ -240,6 +285,15 @@ border-radius: 10px;
     word-spacing: 20px;
     font-size: 20px;
 }
+
+#uff{
+  word-spacing: 1px;
+  text-align: center;
+  margin-top: 10px;
+  color: black;
+}
+
+
 </style>
 <script type="text/javascript">
   var table = document.getElementById("ff");
@@ -251,6 +305,7 @@ var userID;
 var usname;
 var picpicpic;
 var otheruserID;
+var oomessage;
 function pagesetup(){
   var database = firebase.database();
       firebase.auth().onAuthStateChanged(function(user) {
@@ -327,109 +382,92 @@ function newal(){
               postfill.push(item.val());
             })
 
-            if(x == followerfill.length)
-            {
-              immad(postfill);
-            }
-
-            })
+            setTimeout(function() { lololol(postfill); }, 30);
 
 
 
+
+          });
         }
-
 
 })
 
 
+
+
 }
 
-function immad(letstry){
-  var postfill = letstry;
 
+function lololol(postfill){
+                var checkcheck = 0;
+                var postfill = postfill;
+                  document.getElementById("ff").innerHTML = "";
+                  var posttable = document.createElement('table');
 
-var checkcheck = 0;
-document.getElementById("ff").innerHTML = "";
-var posttable = document.createElement('table');
-for(var i = 0; i < postfill.length; i++){
-  var row = posttable.insertRow(checkcheck);
-  row.style.backgroundColor = "#1aa0e0";
-  row.style.height = "100px";
-  row.style.width = "700px";
-  checkcheck++;
-  var cell1 = row.insertCell(0);
-  cell1.colspan = "2";
-  cell1.style.width = "700px";
-  cell1.style.height = "100px";
-  cell1.style.borderBottomLeftRadius = "0px";
-        cell1.style.borderBottomRightRadius = "0px";
-        cell1.style.borderTopLeftRadius = "25px";
-              cell1.style.borderTopRightRadius = "25px";
-    cell1.style.fontSize = "40px";
-    cell1.style.fontFamily = "sans-serif";
-    var img = document.createElement('img');
-    img.src = postfill[i].pic;
-    img.style.height = "100px";
-    img.style.width = "100px";
-    img.style.float = "left";
-    img.style.borderColor = "white";
-    img.style.borderWidth = "Thick";
-
-    var sspan = document.createElement('span');
-    sspan.innerHTML =  postfill[i].text;
-    sspan.style.fontSize = "10px";
-    sspan.style.color = "blue";
-    sspan.id = "textext";
-
-                  //cell1.style.textAlign = "center";
-  cell1.id = postfill[i].id;
-//  cell1.onclick = function () {
-//            tableText(this);
-  //      };
-
-
-
-                    var row2 = posttable.insertRow(checkcheck);
+                  for(var i = 0; i < postfill.length; i++){
+                    var row = posttable.insertRow(checkcheck);
+                    row.style.backgroundColor = "#1aa0e0";
+                    row.style.height = "100px";
+                    row.style.width = "700px";
                     checkcheck++;
-                      var cell2 = row2.insertCell(0);
+                    var cell1 = row.insertCell(0);
+                    cell1.colspan = "2";
+                    cell1.style.width = "700px";
+                    cell1.style.height = "100px";
+                    cell1.style.borderBottomLeftRadius = "0px";
+                          cell1.style.borderBottomRightRadius = "0px";
+                          cell1.style.borderTopLeftRadius = "25px";
+                                cell1.style.borderTopRightRadius = "25px";
+                      cell1.style.fontSize = "40px";
+                      cell1.style.fontFamily = "sans-serif";
+                      var img = document.createElement('img');
+                      img.src = postfill[i].pic;
+                      img.style.height = "100px";
+                      img.style.width = "100px";
+                      img.style.float = "left";
+                      img.style.borderColor = "white";
+                      img.style.borderWidth = "Thick";
 
-                    row2.style.height = "30px";
-                    row2.style.width = "700px";
-                    row2.style.backgroundColor = "#1aa0e0";
-                    cell2.style.width = "350px";
-                    cell2.style.height = "30px";
-                      cell2.style.borderBottomLeftRadius = "25px";
-                            cell2.style.borderBottomRightRadius = "25px";
-                            cell2.style.textAlign = "center";
-                            cell2.style.color = "white";
-                            cell2.style.textAlign = "center";
-                              cell2.onclick = function () {
-                                       goodluck(postfill[i]);
-                                    };
-                            cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+                      var sspan = document.createElement('span');
+                      sspan.innerHTML =  postfill[i].text;
+                      sspan.style.fontSize = "10px";
+                      sspan.style.color = "blue";
+                      sspan.id = "textext";
+
+                                    //cell1.style.textAlign = "center";
+                    cell1.id = postfill[i].id;
+                  //  cell1.onclick = function () {
+                  //            tableText(this);
+                    //      };
+
+                                      var row2 = posttable.insertRow(checkcheck);
+                                      checkcheck++;
+                                        var cell2 = row2.insertCell(0);
+                                      row2.style.height = "30px";
+                                      row2.style.width = "700px";
+                                      row2.style.backgroundColor = "#1aa0e0";
+                                      cell2.style.width = "350px";
+                                      cell2.style.height = "30px";
+                                        cell2.style.borderBottomLeftRadius = "25px";
+                                              cell2.style.borderBottomRightRadius = "25px";
+                                              cell2.style.textAlign = "center";
+                                              cell2.style.color = "white";
+                                              cell2.style.textAlign = "center";
+                                                cell2.onclick = function () {
+                                                         goodluck(postfill[i]);
+                                                      };
+                                              cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+                  cell1.appendChild(img);
+                        cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+            //sspan.
+                    var div = document.getElementById('ff');
+                       div.appendChild(posttable);
 
 
-cell1.appendChild(img);
-      cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
 
-//sspan.
-  var div = document.getElementById('ff');
-     div.appendChild(posttable);
+  }
 
-
-if(i = postfill.length)
-{
-//  postfill = [];
 }
-
-
-}
-
-
-
- }
-
-
 
 
 function fillwindwow(){
@@ -880,6 +918,7 @@ function al(){
 }
 function signout(){
   firebase.auth().signOut().then(function() {
+     window.location.href = "signin.htm";
   console.log('Signed Out');
 }, function(error) {
   console.error('Sign Out Error', error);
@@ -1007,6 +1046,570 @@ return firebase.database().ref().update(updates);
 
 
 }
+
+location.reload();
+}
+
+function uploadd(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+  var input = document.createElement("input");
+
+  input.type = 'file';
+  input.click();
+  input.id = "idk";
+  const ref = firebase.storage().ref();
+
+
+
+const file = document.getElementById(input).files[0];
+const name = (+new Date()) + '-' + file.name;
+const metadata = {
+  contentType: file.type
+};
+const task = ref.child(name).put(file, metadata);
+var url;
+task.then((snapshot) => {
+   url = snapshot.downloadURL;
+
+}).catch((error) => {
+  console.error(error);
+  alert("Error");
+});
+
+var pid;
+task.then((snapshot) => {
+    pid = snapshot.downloadURL;
+});
+
+firebase.database().ref(userID).update({
+
+ pic: url,
+});
+
+firebase.database().ref("Users/" + userID).update({
+
+ pic: url,
+});
+
+username();
+
+
+
+
+}
+
+function username(){
+
+  document.getElementById('ff').innerHTML = "";
+    var pic;
+    var username;
+    var xp;
+    var trials;
+    var followers;
+    var following;
+    var psn;
+    var xbl;
+    var earnings
+    var twitter;
+    var role;
+    var fa;
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+    var psnlength;
+    var pn = document.createElement("INPUT");
+    var xl = document.createElement("INPUT");
+    var twi = document.createElement("INPUT");
+    var ro = document.createElement("INPUT");
+    //userID = firebase.auth().currentUser.uid;
+
+
+
+        var picq = firebase.database().ref().child(userID + '/pic/');
+        picq.once('value', function(snapshot) {
+          pic = snapshot.val();
+          var img = document.createElement('img');
+          img.src = pic;
+          img.style.height = "100px";
+          img.style.width = "100px";
+        //  img.style.marginLeft = "299px";
+        //  img.style.marginRight = "auto";
+          var div = document.getElementById('ff');
+             div.appendChild(img);
+        });
+
+        var usernameq = firebase.database().ref().child(userID + '/name/');
+        usernameq.once('value', function(snapshot) {
+          username = snapshot.val();
+           document.getElementById("ff").innerHTML += "<br />" + username;
+           document.getElementById("ff").style.textAlign = "center";
+            document.getElementById("ff").style.fontSize = "30px";
+        });
+
+        var xpq = firebase.database().ref().child(userID + '/xp/');
+        xpq.once('value', function(snapshot) {
+          xp = snapshot.val();
+            //  document.getElementById("ff").innerHTML += "<br /> <br />XP: " + xp ;
+        });
+
+        var trylq = firebase.database().ref().child(userID + '/TryLs/');
+        trylq.once('value', function(snapshot) {
+          trials = snapshot.val();
+        //  document.getElementById("ff").innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTryLs: " + trials ;
+
+
+        });
+
+        var earningsq = firebase.database().ref().child(userID + '/Earnings/');
+        earningsq.once('value', function(snapshot) {
+          earnings = snapshot.val();
+        //  document.getElementById("ff").innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Earnings: " + earnings;
+
+
+        });
+
+        var r = firebase.database().ref().child(userID + '/Role/');
+        r.once('value', function(snapshot) {
+          Role = snapshot.val();
+        // document.getElementById("ff").innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Earnings: " + earnings;
+
+ro.id = "ro";
+          ro.type = "text";//("type", "text");
+          ro.placeholder = Role;//("placeholder", twitter);
+
+document.getElementById("ff").innerHTML += "<br /> Role: ";
+          document.getElementById("ff").appendChild(ro);
+
+
+
+        });
+
+
+
+                var psnq = firebase.database().ref().child(userID + '/PSN/');
+                psnq.once('value', function(snapshot) {
+                  psn = snapshot.val();
+                  document.getElementById("ff").innerHTML += "<br />";
+                  var img = document.createElement('img');
+                  img.src = "Images/psn.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
+
+                  //   document.getElementById("ff").innerHTML += psn;
+
+
+var div = document.getElementById('ff');
+
+
+
+pn.type = "text";//("type", "text");
+pn.placeholder = psn;//("placeholder", twitter);
+pn.id = "pn";
+document.getElementById("ff").innerHTML += "PSN: ";
+//div.appendChild(img);
+document.getElementById("ff").appendChild(pn);
+
+                });
+
+                var xblq = firebase.database().ref().child(userID + '/XBL/');
+                xblq.on('value', function(snapshot) {
+                  xbl = snapshot.val();
+
+                  document.getElementById("ff").innerHTML += "<br /> XBL: ";
+                  var img = document.createElement('img');
+                  img.src = "Images/xbl.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
+
+
+
+                  xl.type = "text";//("type", "text");
+                  xl.placeholder = xbl;//("placeholder", twitter);
+xl.id = "xl";
+                //  div.appendChild(img);
+                  document.getElementById("ff").appendChild(xl);
+
+
+
+
+
+
+                });
+
+                var tq = firebase.database().ref().child(userID + '/twitter/');
+                tq.once('value', function(snapshot) {
+                  twitter = snapshot.val();
+
+                  document.getElementById("ff").innerHTML += "<br /> Twitter: ";
+                  var img = document.createElement('img');
+                  img.src = "Images/twitter.png";
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                //  img.style.marginLeft = "299px";
+                //  img.style.marginRight = "auto";
+                  var div = document.getElementById('ff');
+
+                       twi.type = "text";//("type", "text");
+                       twi.placeholder = twitter;//("placeholder", twitter);
+twi.id = "twi";
+                    //   div.appendChild(img);
+                       document.getElementById("ff").appendChild(twi);
+                       document.getElementById("ff").innerHTML += "<br />";
+                       var newButton = document.createElement('input');
+                               newButton.type = 'button';
+                               newButton.value = "Update All";
+                             //  newButton.id = buttonsToCreate[i];
+                               newButton.onclick = function () {
+
+var newpsn = document.getElementById("pn").value;
+var newxbl = document.getElementById("xl").value;
+var newtwit = document.getElementById("twi").value;
+var newrole = document.getElementById("ro").value;
+
+if(newpsn == "")
+{
+  newpsn = "psn";
+}
+
+if(newxbl == "")
+{
+  newxbl = "xbl";
+}
+if(newtwit == "")
+{
+  newtwit = "twitter";
+}
+if(newrole == "")
+{
+newrole = "Role";
+}
+                                 firebase.database().ref(userID).update({
+
+                                  XBL: newxbl,
+                                  PSN: newpsn,
+                                  twitter: newtwit,
+                                  Role: newrole,
+                                });
+
+
+                               };
+                         document.getElementById("ff").appendChild(newButton);
+
+                         var newButtonn = document.createElement('input');
+                                 newButtonn.type = 'button';
+                                 newButtonn.value = "Change Pic";
+                               //  newButton.id = buttonsToCreate[i];
+                                 newButtonn.onclick = function () {
+                                   uploadd();
+
+                                 }
+
+                         document.getElementById("ff").innerHTML += "<br />";//(newButton);
+                              document.getElementById("ff").appendChild(newButtonn);
+
+
+
+
+
+                });
+
+
+
+                //var element = document.createElement("input");
+  //Assign different attributes to the element.
+
+//  element.value = "Update All"; // Really? You want the default value to be the type string?
+  //element.name = "update"; // And the name too?
+//  element.onclick = function() { // Note this is a function
+//  alert("hi");
+//  };
+
+
+
+
+
+
+//Append the element in page (in span).
+
+
+
+
+
+
+
+
+}
+
+function cc(){
+
+
+  document.getElementById("uff").innerHTML = "";
+  var posttable = document.createElement('table');
+
+
+
+
+    var row = posttable.insertRow(0);
+    row.style.backgroundColor = "#1aa0e0";
+    row.style.height = "50px";
+    row.style.width = "600px";
+    row.style.borderRadius = "25px";
+    var cell1 = row.insertCell(0);
+
+    cell1.style.width = "600px";
+      cell1.style.borderRadius = "25px";
+      cell1.style.fontSize = "40px";
+      cell1.style.fontFamily = "sans-serif";
+
+
+
+    cell1.innerHTML = "NGE NA Ladder";
+    cell1.style.textAlign = "center";
+
+    cell1.onclick = function () {
+              ladder();
+          };
+
+
+          var row2 = posttable.insertRow(1);
+          row2.style.backgroundColor = "#1aa0e0";
+          row2.style.height = "50px";
+          row2.style.width = "600px";
+          row2.style.borderRadius = "25px";
+          document.getElementById('uff').innerHTML += "<br />";
+          var cell2 = row.insertCell(1);
+
+          cell2.style.width = "600px";
+            cell2.style.borderRadius = "25px";
+            cell2.style.fontSize = "40px";
+            cell2.style.fontFamily = "sans-serif";
+
+
+
+          cell2.innerHTML = "Team Scrims";
+          cell2.style.textAlign = "center";
+
+          cell2.onclick = function () {
+                    tscrim();
+                };
+
+    var div = document.getElementById('uff');
+       div.appendChild(posttable);
+
+
+  }
+function tscrim(){
+  document.getElementById("uff").innerHTML = 'Click any of the below to accept or click <button onclick="createts()"> here </button> to be added';
+
+  var tss = [];
+
+  var database = firebase.database();
+  database.ref('/TSF/').once('value', function(snap) {
+    var fa = [];
+    snap.forEach(function(item) {
+
+
+      tss.unshift(item.val());
+    })
+
+
+      var fatable = document.createElement('table');
+      for(var i = 0; i < tss.length; i++){
+        if(tss[i].userid == userID)
+        {
+
+                    var row = fatable.insertRow(i);
+                    row.style.backgroundColor = "#ff9999";
+
+                    row.style.height = "100px";
+                    row.style.width = "700px";
+                    var cell1 = row.insertCell(0);
+                    cell1.colspan = "2";
+                    cell1.style.width = "700px";
+                    cell1.style.height = "100px";
+                    cell1.style.borderRadius = "20px";
+                    cell1.innerHTML = tss[i].name;
+
+                    cell1.onclick = function () {
+                      var firebaseref = firebase.database().ref();
+
+                    firebase.database().ref.child('TSF/' + tss[i].ke).remove();
+                          };
+        }
+        else{
+
+                    var row = fatable.insertRow(i);
+                    row.style.backgroundColor = "#1aa0e0";
+                    row.style.height = "100px";
+                    row.style.width = "700px";
+                    var cell1 = row.insertCell(0);
+                    cell1.colspan = "2";
+                    cell1.style.width = "700px";
+                    cell1.style.height = "100px";
+                    cell1.style.borderRadius = "20px";
+                      cell1.innerHTML = tss[i].name;
+                      cell1.onclick = function () {
+                          var firebaseref = firebase.database().ref();
+                        firebase.database().ref.child('TSF/' + tss[i].ke).remove();
+                                run(tss[i].userid);
+                            };
+
+        }
+
+      }
+      var div = document.getElementById('uff');
+         div.appendChild(fatable);
+    })
+
+  }
+
+function run(t){
+  var i = t;
+  var database = firebase.database();
+  var me = [];
+  oomessage = i;
+  //var newuserkey = firebase.database().ref().child('/Messages/' + t + '/' + userID).push().key;
+    //var otheruserkey = firebase.database().ref().child('/Messages/' + userID + '/' + t).push().key;
+    database.ref('/Messages/' + userID + '/' + i).on('value', function(snap) {
+
+      snap.forEach(function(item) {
+        me.push(item.val());
+      })
+
+
+    });
+
+    var checkcheck = 0;
+    var postfill = me;
+      document.getElementById("uff").innerHTML = "";
+      var posttable = document.createElement('table');
+      for(var i = 0; i < postfill.length; i++){
+        var row = posttable.insertRow(checkcheck);
+        row.style.backgroundColor = "#1aa0e0";
+        row.style.height = "100px";
+        row.style.width = "700px";
+        checkcheck++;
+        var cell1 = row.insertCell(0);
+        cell1.colspan = "2";
+        cell1.style.width = "700px";
+        cell1.style.height = "100px";
+        cell1.style.borderBottomLeftRadius = "0px";
+              cell1.style.borderBottomRightRadius = "0px";
+              cell1.style.borderTopLeftRadius = "25px";
+                    cell1.style.borderTopRightRadius = "25px";
+          cell1.style.fontSize = "40px";
+          cell1.style.fontFamily = "sans-serif";
+          cell1.innerHTML = postfill[i].message;
+
+        var div = document.getElementById('uff');
+           div.appendChild(posttable);
+
+}
+
+
+}
+
+
+function createts(){
+var database = firebase.database();
+
+var newuserkey = firebase.database().ref().child('/TSF/').push().key;
+
+
+
+
+
+//  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+//  updates[userID + '/posts/' + newPostKey] = data;
+firebase.database().ref('TSF/' + newuserkey).set({
+name: usname,
+userid: userID,
+ke: newuserkey,
+
+});
+
+
+
+
+}
+
+
+
+
+function ladder(){
+
+}
+
+
+
+
+
+
+function sendmessage(){
+  var usermessage = document.getElementById("usertypee").value;
+  document.getElementById("usertypee").value = "";
+
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+
+//var last2 = year.slice(-2);
+//var last2 = year.toString().substr(year.length -2);
+
+
+var sizecheck = usermessage.toLowerCase().search("font-size:");
+var buttoncheck = usermessage.toLowerCase().search("</button>");
+
+
+if(sizecheck != -1){
+  alert("You can not change the size of your font. Use <Strong> to bold :)");
+
+}
+else if(buttoncheck != -1){
+  alert("You can not add buttons. Use <a> to link :)");
+}
+else{
+
+
+              var data =
+              {
+                username: usname,
+                userid: userID,
+                text: usermessage,
+
+              }
+
+//var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
+//var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+var newuserkey = firebase.database().ref().child('/Messages/' + userID + '/' + oomessage).push().key;
+var other = firebase.database().ref().child('/Messages/' + oomessage + '/' + userID).push().key;
+
+
+
+var updates = {};
+var u = {};
+//  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+//  updates[userID + '/posts/' + newPostKey] = data;
+  updates['/Messages/' + userID + '/' + oomessage + '/' + newuserkey] = data;
+    updates['/Messages/' + oomessage + '/' + userID + '/' + other] = data;
+
+return firebase.database().ref().update(updates);
+return firebase.database().ref().update(u);
+
+
+
+
+
+}
+
+
+
 }
 </script>
 
@@ -1014,7 +1617,7 @@ return firebase.database().ref().update(updates);
 </head>
 <body onload="pagesetup();">
 <div id="head">
-  <div id="username">
+  <div id="username" onclick="username();">
 
   Username
 
@@ -1023,7 +1626,7 @@ return firebase.database().ref().update(updates);
 
 <center>
 
-    <img id="headerlogo" src="Images/ngelogo.png" height="110px" width="110px" />
+  <a href="index.htm">  <img id="headerlogo" src="Images/ngelogo.png" height="110px" width="110px" /></a>
 
 </center>
 
@@ -1068,8 +1671,16 @@ return firebase.database().ref().update(updates);
 <div id="utility">
   <div id="umenu">
     <center>
-    Competetion &nbsp&nbsp&nbsp  Comunity &nbsp&nbsp&nbsp News
+    <span onclick="cc();">Competetion </span> &nbsp&nbsp&nbsp  Comunity &nbsp&nbsp&nbsp News
   </center>
+  <div id="uff">
+
+  </div>
+  <div id="postt">
+    <br />
+    <input onkeyup="" id ="usertypee" placeholder=""> <br />
+    <button onclick="sendmessage();" id="typesendd"> Send </button>
+  </div>
 
   </div>
 

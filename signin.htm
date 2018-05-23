@@ -92,7 +92,7 @@ function login(){
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
 
-   window.location.href = "index.htm";
+   window.location.href = "freeagents.htm";
 
 
     }
@@ -125,51 +125,91 @@ function login(){
   else {
 
 
-    firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {  // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    });
+//check database for already existing username
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        usersRef = firebaseref.child(user.uid);
-        firebase.database().ref('Users/' + username).set({
-          email: email,
-          pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
-          id: user.uid,
-          name: username,
+var checkusername = false;
+var checkemail = false;
+  database.ref('/Users/').once('value', function(snap) {
+    var fa = [];
+    snap.forEach(function(item) {
+var ch = item.val();
+      if(username.toLowerCase() == ch.name.toLowerCase())
+      {
+        checkusername = true;
+      }
 
+      if(email.toLowerCase() == ch.email.toLowerCase())
+      {
+        checkemail = true;
+      }
+
+
+    })
+
+
+    if(checkusername == true)
+    {
+        alert("Username has already been taken");
+    }
+    else if(checkemail == true)
+    {
+      alert("Email has already been used");
+    }
+    else{
+
+
+        firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {  // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
         });
-        firebase.database().ref(user.uid).set({
-         name: username,
-         email: email,
-         money: 0,
-         xp: 0,
-         Earnings: 0,
-         TryLs: 0,
-         XBL: "",
-         PSN: "",
-         pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
-         twitter: "",
-       });
 
-  firebase.database().ref(user.uid + '/Following/' + user.id).update({user.uid});
-  isSuccessful = true;
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            usersRef = firebaseref.child(user.uid);
+            firebase.database().ref('Users/' + username).set({
+              email: email,
+              pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+              id: user.uid,
+              name: username,
 
-  setTimeout(function () {
-  changepage();
-  }, 2000);
+            });
+
+            var ch = user.uid;
+            firebase.database().ref(user.uid).set({
+             name: username,
+             email: email,
+             money: 0,
+             xp: 0,
+             Earnings: 0,
+             TryLs: 0,
+             XBL: "",
+             PSN: "",
+             pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+             twitter: "",
+             freeagentstatus: true,
+             Role: "",
+           });
+
+      firebase.database().ref(user.uid + '/Following/' + user.uid).update({ch});
+      isSuccessful = true;
+
+      setTimeout(function () {
+      changepage();
+      }, 2000);
+
+          }
+          });
+
 
       }
-      });
 
-
-  }
+  });
 
 
 
 
 
+}
     }
 
 
@@ -231,14 +271,14 @@ function login(){
 </div>
 
 
-<div id="footer">
+ <div id="footer"><!--
   <div id="ftext">
   Privacy Policy &nbsp&nbsp&nbsp
   Terms of Service &nbsp&nbsp&nbsp
   Advertise &nbsp&nbsp&nbsp
   Contact Us
 </div>
-
+-->
 
 </div>
   <script>
