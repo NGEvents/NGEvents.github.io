@@ -1,5 +1,5 @@
-<!-- All code written on this site is sole property of National Gaming Events
-Developer: Allen Olsen Kendrick (zNine) Twitter @MoazNine
+<!--
+Developer: AOKendrick (zNine) Twitter @MoazNine
  Version Number='0.0.0.0.6'
  Version Update='0'
  Version Name = 'AfterMath'
@@ -155,6 +155,10 @@ body{
 
 }
 
+#uff::-webkit-scrollbar {
+    display: none;
+}
+
 #post{
 
   height: 50px;
@@ -205,6 +209,7 @@ margin-top: 545px;
   color: black;
   font-size: 20px;
   float: left;
+  visibility: hidden;
 }
 #typesend{
   display: block;
@@ -230,6 +235,7 @@ border-radius: 10px;
 border-style: 1px;
 border-color: white;
 color: #1aa0e0;
+visibility: hidden;
 float: right;
 padding: 5px 10px;
 text-align: center;
@@ -291,6 +297,8 @@ margin-bottom: 0px;
   text-align: center;
   margin-top: 10px;
   color: black;
+  overflow: scroll;
+  height: 520px;
 }
 
 
@@ -847,17 +855,26 @@ else{
                                       row.style.height = "50px";
                                       row.style.width = "600px";
                                       row.style.borderRadius = "25px";
+var mcel = row.insertCell(1);
+mcel.innerHTML = "Message";
+mcel.style.textAlign = "center";
+mcel.style.backgroundColor = "grey";
+mcel.style.height="50px;"
+mcel.style.width="150px;"
+mcel.onclick = function () {
+          run(tableCell.id);
+      };
 
 
                                             cel.innerHTML = "Follow";
                                             cel.style.textAlign = "center";
                                             cel.style.backgroundColor = "grey";
-                                            cel.style.height="50px;"
-                                            cel.style.width="150px;"
-                                            cel.id = otheruserID;
+                                            cel.style.height="50px;";
+                                            cel.style.width="150px;";
+                                            cel.id = tableCell.id;
 
                                             cel.onclick = function () {
-                                                      follow(cel.id);
+                                                      follow(tableCell.id);
                                                   };
 
 
@@ -1410,7 +1427,7 @@ function tscrim(){
   var tss = [];
 
   var database = firebase.database();
-  database.ref('/TSF/').once('value', function(snap) {
+  database.ref('/TSF/').on('value', function(snap) {
     var fa = [];
     snap.forEach(function(item) {
 
@@ -1437,9 +1454,9 @@ function tscrim(){
                     cell1.innerHTML = tss[i].name;
 
                     cell1.onclick = function () {
-                      var firebaseref = firebase.database().ref();
 
-                    firebase.database().ref.child('TSF/' + tss[i].ke).remove();
+var l = tss[i - 1].ke;
+                    firebase.database().ref('TSF/' + l).remove();
                           };
         }
         else{
@@ -1456,8 +1473,9 @@ function tscrim(){
                       cell1.innerHTML = tss[i].name;
                       cell1.onclick = function () {
                           var firebaseref = firebase.database().ref();
-                        firebase.database().ref.child('TSF/' + tss[i].ke).remove();
-                                run(tss[i].userid);
+                          var l = tss[i - 1].ke;
+                        firebase.database().ref('TSF/' + l).remove();
+                                run(tss[i - 1].userid);
                             };
 
         }
@@ -1469,48 +1487,72 @@ function tscrim(){
 
   }
 
+function lollol(d){
+  var postfill = d;
+  var checkcheck = 0;
+
+    document.getElementById("uff").innerHTML = "";
+    var posttable = document.createElement('table');
+    for(var i = 0; i < postfill.length; i++){
+
+      var row = posttable.insertRow(checkcheck);
+
+      row.style.height = "50px";
+      row.style.width = "700px";
+      checkcheck++;
+      var cell1 = row.insertCell(0);
+      cell1.colspan = "2";
+      cell1.style.width = "700px";
+      cell1.style.height = "50px";
+      cell1.style.borderBottomLeftRadius = "0px";
+            cell1.style.borderBottomRightRadius = "0px";
+            cell1.style.borderTopLeftRadius = "25px";
+                  cell1.style.borderTopRightRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        cell1.innerHTML = postfill[i].text;
+row.style.backgroundColor = "#1aa0e0";
+if(postfill[i].userid = userID)
+{
+      cell1.style.borderBottomLeftRadius = "25px";
+  row.style.backgroundColor = "green";
+  cell1.style.textAlign = "Right";
+}
+else{
+  row.style.backgroundColor = "#1aa0e0";
+    cell1.style.textAlign = "Left";
+    cell1.style.borderBottomRightRadius = "25px";
+}
+
+
+      var div = document.getElementById('uff');
+      div.scrollTop = div.scrollHeight;
+         div.appendChild(posttable);
+
+}
+
+}
 function run(t){
   var i = t;
+  document.getElementById("uff").innerHTML = "";
   var database = firebase.database();
-  var me = [];
+
   oomessage = i;
+  document.getElementById("usertypee").style.visibility = "visible";
+    document.getElementById("typesendd").style.visibility = "visible";
   //var newuserkey = firebase.database().ref().child('/Messages/' + t + '/' + userID).push().key;
     //var otheruserkey = firebase.database().ref().child('/Messages/' + userID + '/' + t).push().key;
     database.ref('/Messages/' + userID + '/' + i).on('value', function(snap) {
-
+var me = [];
       snap.forEach(function(item) {
         me.push(item.val());
       })
+      setTimeout(function() { lollol(me); }, 30);
 
 
     });
 
-    var checkcheck = 0;
-    var postfill = me;
-      document.getElementById("uff").innerHTML = "";
-      var posttable = document.createElement('table');
-      for(var i = 0; i < postfill.length; i++){
-        var row = posttable.insertRow(checkcheck);
-        row.style.backgroundColor = "#1aa0e0";
-        row.style.height = "100px";
-        row.style.width = "700px";
-        checkcheck++;
-        var cell1 = row.insertCell(0);
-        cell1.colspan = "2";
-        cell1.style.width = "700px";
-        cell1.style.height = "100px";
-        cell1.style.borderBottomLeftRadius = "0px";
-              cell1.style.borderBottomRightRadius = "0px";
-              cell1.style.borderTopLeftRadius = "25px";
-                    cell1.style.borderTopRightRadius = "25px";
-          cell1.style.fontSize = "40px";
-          cell1.style.fontFamily = "sans-serif";
-          cell1.innerHTML = postfill[i].message;
 
-        var div = document.getElementById('uff');
-           div.appendChild(posttable);
-
-}
 
 
 }
@@ -1543,9 +1585,33 @@ ke: newuserkey,
 
 
 function ladder(){
+var database = firebase.database();
+document.getElementById("uff").innerHTML = '<span style="text-align: center;"> NGE Open Ladder </span>';
+document.getElementById("uff").innerHTML += '<br /> <span style="background-color: blue; color: white;"> Rankings &nbsp&nbsp&nbsp&nbsp&nbsp My Team &nbsp&nbsp&nbsp&nbsp&nbsp Rules </span>' ;
+var tss = [];
+
+database.ref('/NGELadder/Teams').once('value', function(snap) {
+  var fa = [];
+  snap.forEach(function(item) {
+
+
+    tss.unshift(item.val());
+  })
+
+let keys = Object.keys(tss);
+keys.sort(function(a, b) { return tss[a].xp - tss[b].xp });
+alert(keys);
+
+
+for(var i = 0; i < tss.length; i++)
+{
+  var t = keys[i];
+  document.getElementById("uff").innerHTML += "<br />" + tss[t].name + ": " + tss[t].xp + "<br />";
+}
+})
+
 
 }
-
 
 
 
@@ -1575,13 +1641,22 @@ else if(buttoncheck != -1){
   alert("You can not add buttons. Use <a> to link :)");
 }
 else{
+  var nnnnn;
+  var cccc = firebase.database().ref().child(oomessage + '/name/');
+  cccc.once('value', function(snapshot) {
+    nnnnn = snapshot.val();
+
+  });
 
 
               var data =
               {
-                username: usname,
-                userid: userID,
+                senderusername: usname,
+                senderuserid: userID,
                 text: usermessage,
+                recievername: nnnnn,
+                recieverid: oomessage,
+
 
               }
 
@@ -1599,9 +1674,14 @@ var u = {};
   updates['/Messages/' + userID + '/' + oomessage + '/' + newuserkey] = data;
     updates['/Messages/' + oomessage + '/' + userID + '/' + other] = data;
 
+
+    updates[userID + '/LastMessage/' + oomessage] = data;
+      updates[oomessage + '/LastMessage/' + userID] = data;
+
 return firebase.database().ref().update(updates);
 return firebase.database().ref().update(u);
 
+run(oomessage);
 
 
 
@@ -1611,6 +1691,74 @@ return firebase.database().ref().update(u);
 
 
 }
+
+function frag(){
+  var database = firebase.database();
+  var me = [];
+  database.ref(userID + '/LastMessage/').on('value', function(snap) {
+var me = [];
+    snap.forEach(function(item) {
+      me.push(item.val());
+    })
+    setTimeout(function() { lolll(me); }, 30);
+
+
+  });
+
+}
+
+function lolll(d)
+{
+  var eh = d;
+  var postfill = eh;
+  document.getElementById("uff").innerHTML = "";
+  var posttable = document.createElement('table');
+  var checkcheck = 0;
+  for(var i = 0; i < postfill.length; i++){
+
+    var row = posttable.insertRow(checkcheck);
+row.style.backgroundColor = "#1aa0e0";
+    row.style.height = "50px";
+    row.style.width = "700px";
+    checkcheck++;
+    var cell1 = row.insertCell(0);
+    cell1.colspan = "2";
+    cell1.style.width = "700px";
+    cell1.style.height = "50px";
+    cell1.style.borderBottomLeftRadius = "0px";
+          cell1.style.borderBottomRightRadius = "0px";
+          cell1.style.borderTopLeftRadius = "25px";
+                cell1.style.borderTopRightRadius = "25px";
+      cell1.style.fontSize = "40px";
+      cell1.style.fontFamily = "sans-serif";
+      cell1.innerHTML = postfill[i].text;
+row.style.backgroundColor = "#1aa0e0";
+
+if(postfill[i].userid == userID)
+{
+  cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].senderusername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
+  cell1.onclick = function () {
+
+    run(postfill[i - 1].senderuserid)
+        };
+}
+else{
+  cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].recievername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
+  cell1.onclick = function () {
+
+    run(postfill[i - 1].recieverid)
+        };
+}
+
+    var div = document.getElementById('uff');
+       div.appendChild(posttable);
+
+}
+
+}
+
+
+
 </script>
 
 
@@ -1635,11 +1783,11 @@ return firebase.database().ref().update(u);
   &nbsp&nbsp
   <img src="Images/alert.png" height="40px" width="40px" />
     &nbsp&nbsp
-  <img  src="Images/message.png" height="40px" width="40px" />
+  <img onclick="frag();" src="Images/message.png" height="40px" width="40px" />
     &nbsp&nbsp
   <img src="Images/shop.png" height="40px" width="40px" />
     &nbsp&nbsp
-  <button onclick="signout();"><img  src="Images/signout.png" height="40px" width="40px" /></button>
+<img  src="Images/signout.png" height="40px" width="40px" />
 </div>
 
 </div>
@@ -1676,14 +1824,14 @@ return firebase.database().ref().update(u);
   <div id="uff">
 
   </div>
+
+
+  </div>
   <div id="postt">
     <br />
     <input onkeyup="" id ="usertypee" placeholder=""> <br />
     <button onclick="sendmessage();" id="typesendd"> Send </button>
   </div>
-
-  </div>
-
 
 </div>
 <div id="footer">
