@@ -188,6 +188,7 @@ var ch = item.val();
              twitter: "",
              freeagentstatus: true,
              Role: "",
+             FreeAgent: false,
            });
 
       firebase.database().ref(user.uid + '/Following/' + user.uid).update({ch});
