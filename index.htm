@@ -854,6 +854,15 @@ else{
                                             cell11.style.height="50px;"
                                             cell11.style.width="150px;"
                                             cell11.id = otheruserID;
+                                            var mcel = row.insertCell(1);
+                                            mcel.innerHTML = "Message";
+                                            mcel.style.textAlign = "center";
+                                            mcel.style.backgroundColor = "grey";
+                                            mcel.style.height="50px;"
+                                            mcel.style.width="150px;"
+                                            mcel.onclick = function () {
+                                                      run(tableCell.id);
+                                                  };
                                             cell11.onclick = function () {
                                                       Unfollow(this);
                                                   };
