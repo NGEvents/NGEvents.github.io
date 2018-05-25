@@ -1315,12 +1315,10 @@ var newpsn = document.getElementById("pn").value;
 var newxbl = document.getElementById("xl").value;
 var newtwit = document.getElementById("twi").value;
 var newrole = document.getElementById("ro").value;
-
 if(newpsn == "")
 {
   newpsn = "psn";
 }
-
 if(newxbl == "")
 {
   newxbl = "xbl";
@@ -1342,17 +1340,45 @@ newrole = "Role";
                                 });
 
 
-                               };
+                               }
                          document.getElementById("ff").appendChild(newButton);
 
-                      /*   var newButtonn = document.createElement('input');
+                         var newButtonn = document.createElement('input');
                                  newButtonn.type = 'button';
                                  newButtonn.value = "Change Pic";
                                //  newButton.id = buttonsToCreate[i];
                                  newButtonn.onclick = function () {
-                                   uploadd();
+                                   //uploadd();
 
-                                 }*/
+                                   var newpsn = document.getElementById("pn").value;
+                                   var newxbl = document.getElementById("xl").value;
+                                   var newtwit = document.getElementById("twi").value;
+                                   var newrole = document.getElementById("ro").value;
+                                   if(newpsn == "")
+                                   {
+                                     newpsn = "psn";
+                                   }
+                                   if(newxbl == "")
+                                   {
+                                     newxbl = "xbl";
+                                   }
+                                   if(newtwit == "")
+                                   {
+                                     newtwit = "twitter";
+                                   }
+                                   if(newrole == "")
+                                   {
+                                   newrole = "Role";
+                                   }
+                                                                    firebase.database().ref(userID).update({
+
+                                                                     XBL: newxbl,
+                                                                     PSN: newpsn,
+                                                                     twitter: newtwit,
+                                                                     Role: newrole,
+                                                                   });
+
+                                 }
 
                          document.getElementById("ff").innerHTML += "<br />";//(newButton);
                               document.getElementById("ff").appendChild(newButtonn);
