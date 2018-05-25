@@ -1,14 +1,15 @@
 <!--
 Developer: AOKendrick (zNine) Twitter @MoazNine
- Version Number='0.0.0.0.6'
- Version Update='0'
+ Version Number='0.0.1'
+ Version Update='01'
  Version Name = 'AfterMath'
- Version Publish Date = '04-29-2018'
-Developer Notes: -->
+ Version Publish Date = '05-25-2018'
+Developer Notes: Betaaaa-->
 
 <!DOCTYPE html>
 <html>
 <head>
+  <title> NGEConnect Beta </title>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 <style type="text/css">
 
@@ -314,6 +315,7 @@ var usname;
 var picpicpic;
 var otheruserID;
 var oomessage;
+var freee;
 function pagesetup(){
   var database = firebase.database();
       firebase.auth().onAuthStateChanged(function(user) {
@@ -337,15 +339,23 @@ function pagesetup(){
 
         });
 
+        var earningssq = firebase.database().ref().child(userID + '/FreeAgent/');
+        earningssq.on('value', function(snapshot) {
+          freee = snapshot.val();
+
+
+
+        });
+
         //  fillwindwow();
           newal();
 
 
         }
         else{
-      //   window.location.href = "signin.htm";
-
-       userID = "8FXxTwS2fwYveChBKNNIlStbQbu1";
+        window.location.href = "signin.htm";
+}})}
+      /* userID = "8FXxTwS2fwYveChBKNNIlStbQbu1";
        var trylq = firebase.database().ref().child(userID + '/name/');
        trylq.on('value', function(snapshot) {
          usname = snapshot.val();
@@ -360,6 +370,14 @@ function pagesetup(){
 
 
        });
+
+       var earningssq = firebase.database().ref().child(userID + '/FreeAgent/');
+       earningssq.on('value', function(snapshot) {
+         freee = snapshot.val();
+
+
+
+       });
       //  usname = "zNinee";
       //  picpicpic = "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758";
 
@@ -367,10 +385,10 @@ function pagesetup(){
           newal();
         }
       })
+*/
 
-
-
-}
+//}
+//}
 
 function newal(){
     var database = firebase.database();
@@ -1533,7 +1551,16 @@ else{
 
 }
 function run(t){
-  var i = t;
+
+var i;
+  if(t.id != "")
+  {
+    i = t.id;
+  }
+  else{
+    i = t;
+  }
+
   document.getElementById("uff").innerHTML = "";
   var database = firebase.database();
 
@@ -1582,12 +1609,50 @@ ke: newuserkey,
 }
 
 
+function t(){
 
+var database = firebase.database();
+var team;
+var tinfo = [];
+var s = firebase.database().ref().child(userID + '/Team/');
+s.on('value', function(snapshot) {
+  team = snapshot.val();
+
+  if(team == null)
+  {
+    document.getElementById("uff").innerHTML = "Create Team <br /> Join Team";
+
+
+  }
+  else{
+
+    database.ref('/NGELadder/Teams/' + team).once('value', function(snap) {
+
+      snap.forEach(function(item) {
+
+
+        tinfo.unshift(item.val());
+      })
+
+      document.getElementById("uff").innerHTML = tinfo[4] + "<br />" + tinfo[1] + "-" + tinfo[5];
+    });
+
+}
+
+});
+
+
+
+
+
+
+
+}
 
 function ladder(){
 var database = firebase.database();
 document.getElementById("uff").innerHTML = '<span style="text-align: center;"> NGE Open Ladder </span>';
-document.getElementById("uff").innerHTML += '<br /> <span style="background-color: blue; color: white;"> Rankings &nbsp&nbsp&nbsp&nbsp&nbsp My Team &nbsp&nbsp&nbsp&nbsp&nbsp Rules </span>' ;
+document.getElementById("uff").innerHTML += '<br /> <span style="background-color: blue; color: white;"> Rankings &nbsp&nbsp&nbsp&nbsp&nbsp <span onclick="t();">My Team </span> &nbsp&nbsp&nbsp&nbsp&nbsp Rules </span>' ;
 var tss = [];
 
 database.ref('/NGELadder/Teams').once('value', function(snap) {
@@ -1603,8 +1668,9 @@ keys.sort(function(a, b) { return tss[a].xp - tss[b].xp });
 alert(keys);
 
 
-for(var i = 0; i < tss.length; i++)
+for(var i = tss.length - 1; i >= 0; i--)
 {
+
   var t = keys[i];
   document.getElementById("uff").innerHTML += "<br />" + tss[t].name + ": " + tss[t].xp + "<br />";
 }
@@ -1646,19 +1712,17 @@ else{
   cccc.once('value', function(snapshot) {
     nnnnn = snapshot.val();
 
-  });
+
+    var data =
+    {
+      senderusername: usname,
+      senderuserid: userID,
+      text: usermessage,
+      recievername: nnnnn,
+      recieverid: oomessage,
 
 
-              var data =
-              {
-                senderusername: usname,
-                senderuserid: userID,
-                text: usermessage,
-                recievername: nnnnn,
-                recieverid: oomessage,
-
-
-              }
+    }
 
 //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
 //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
@@ -1671,18 +1735,23 @@ var updates = {};
 var u = {};
 //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
 //  updates[userID + '/posts/' + newPostKey] = data;
-  updates['/Messages/' + userID + '/' + oomessage + '/' + newuserkey] = data;
-    updates['/Messages/' + oomessage + '/' + userID + '/' + other] = data;
+updates['/Messages/' + userID + '/' + oomessage + '/' + newuserkey] = data;
+updates['/Messages/' + oomessage + '/' + userID + '/' + other] = data;
 
 
-    updates[userID + '/LastMessage/' + oomessage] = data;
-      updates[oomessage + '/LastMessage/' + userID] = data;
+updates[userID + '/LastMessage/' + oomessage] = data;
+updates[oomessage + '/LastMessage/' + userID] = data;
 
 return firebase.database().ref().update(updates);
 return firebase.database().ref().update(u);
 
 run(oomessage);
 
+
+
+
+
+  });
 
 
 
@@ -1709,14 +1778,17 @@ var me = [];
 
 function lolll(d)
 {
+
   var eh = d;
   var postfill = eh;
   document.getElementById("uff").innerHTML = "";
   var posttable = document.createElement('table');
   var checkcheck = 0;
-  for(var i = 0; i < postfill.length; i++){
 
-    var row = posttable.insertRow(checkcheck);
+
+for(var i = 0; i < postfill.length; i++){
+
+    var row = posttable.insertRow(i);
 row.style.backgroundColor = "#1aa0e0";
     row.style.height = "50px";
     row.style.width = "700px";
@@ -1734,19 +1806,23 @@ row.style.backgroundColor = "#1aa0e0";
       cell1.innerHTML = postfill[i].text;
 row.style.backgroundColor = "#1aa0e0";
 
+
 if(postfill[i].userid == userID)
 {
+  //cell1.id = h;
+  cell1.id = postfill[i].senderuserid;
   cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].senderusername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
   cell1.onclick = function () {
 
-    run(postfill[i - 1].senderuserid)
+    run(this);
         };
 }
 else{
   cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].recievername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
-  cell1.onclick = function () {
+cell1.id = postfill[i].recieverid;
 
-    run(postfill[i - 1].recieverid)
+  cell1.onclick = function () {
+      run(this);
         };
 }
 
@@ -1757,8 +1833,272 @@ else{
 
 }
 
+function news(){
+  var database = firebase.database();
+  var me = [];
+  database.ref('/News/').on('value', function(snap) {
+var me = [];
+    snap.forEach(function(item) {
+      me.push(item.val());
+    })
+    setTimeout(function() { llll(me); }, 30);
 
 
+  });
+
+
+}
+
+function llll(d){
+  document.getElementById("uff").innerHTML = "";
+  var posttable = document.createElement('table');
+  var checkcheck = 0;
+
+  var postfill = d;
+
+  for(var i = 0; i < postfill.length; i++){
+
+      var row = posttable.insertRow(i);
+  row.style.backgroundColor = "#1aa0e0";
+      row.style.height = "50px";
+      row.style.width = "700px";
+      checkcheck++;
+      var cell1 = row.insertCell(0);
+      cell1.colspan = "2";
+      cell1.style.width = "700px";
+      cell1.style.height = "50px";
+      cell1.style.borderBottomLeftRadius = "0px";
+            cell1.style.borderBottomRightRadius = "0px";
+            cell1.style.borderTopLeftRadius = "25px";
+                  cell1.style.borderTopRightRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        cell1.innerHTML = postfill[i].Title;
+  row.style.backgroundColor = "#1aa0e0";
+  var igloo = postfill[i].Title + " <br />" + postfill[i].Text;
+  cell1.id = igloo;
+  cell1.onclick = function () {
+      newrun(this);
+        };
+
+
+
+      var div = document.getElementById('uff');
+         div.appendChild(posttable);
+
+  }
+
+}
+
+
+function newrun(d){
+  var i = d.id;
+document.getElementById("uff").innerHTML = i;
+
+
+
+}
+
+function com(){
+  document.getElementById("uff").innerHTML = "";
+  var posttable = document.createElement('table');
+
+
+
+
+    var row = posttable.insertRow(0);
+    row.style.backgroundColor = "#1aa0e0";
+    row.style.height = "50px";
+    row.style.width = "600px";
+    row.style.borderRadius = "25px";
+    var cell1 = row.insertCell(0);
+
+    cell1.style.width = "600px";
+      cell1.style.borderRadius = "25px";
+      cell1.style.fontSize = "40px";
+      cell1.style.fontFamily = "sans-serif";
+
+
+
+    cell1.innerHTML = "Free Agents";
+    cell1.style.textAlign = "center";
+
+    cell1.onclick = function () {
+              free();
+          };
+          var div = document.getElementById('uff');
+             div.appendChild(posttable);
+
+
+}
+
+function free(){
+  var database = firebase.database();
+  database.ref('/FreeAgent/').on('value', function(snap) {
+    var fa = [];
+    snap.forEach(function(item) {
+
+
+      fa.unshift(item.val());
+    })
+
+if(freee !=  false)
+{
+  document.getElementById("uff").innerHTML = 'Click <button onclick="remove();"> Here </button> to be taken off the list.';
+
+}
+else{
+  document.getElementById("uff").innerHTML = 'Click <button onclick="add();"> Here </button> to be added to the list. You will be taken off in 7 days!';
+
+}
+
+
+
+
+
+      var fatable = document.createElement('table');
+      var d = new Date();
+      var n = d.getTime();
+
+      for(var i = 0; i < fa.length; i++){
+
+        if(n - fa[i].time < 604800000)
+        {
+
+
+          var row = fatable.insertRow(i);
+          row.style.backgroundColor = "#1aa0e0";
+          row.style.height = "100px";
+          row.style.width = "700px";
+          var cell1 = row.insertCell(0);
+          cell1.colspan = "2";
+          cell1.style.width = "700px";
+          cell1.style.height = "100px";
+          cell1.style.borderRadius = "20px";
+var che;
+          if(n - fa[i].time < 3600000)
+          {
+
+
+            var today = new Date();
+            var ss = fa[i].time;
+var da = new Date(ss);
+var diffMs = (today - da); // milliseconds between now & then
+var diffDays = Math.floor(diffMs / 86400000); // days
+var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+
+          che = diffMins + " Minutes ago"  ;
+          }
+          else if(n - fa[i].time < 86400000)
+          {
+              var today = new Date();
+            var ss = fa[i].time;
+            var da = new Date(ss);
+            var diffMs = (today - da); // milliseconds between now & then
+            var diffDays = Math.floor(diffMs / 86400000); // days
+            var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+            var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+            che = diffHrs + " Hour(s) and " + diffMins + " Minute(s) ago" ;
+          }
+          else if(n - fa[i].time > 86400000)
+          {
+              var today = new Date();
+              var ss = fa[i].time;
+              var da = new Date(ss);
+              var diffMs = (today - da); // milliseconds between now & then
+              var diffDays = Math.floor(diffMs / 86400000); // days
+              var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+              var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+            che = diffDays + " Day(s) and " + diffHrs + " hours ago"  ;
+          }
+          else if(n - fa[i].time < 432,000,000)
+          {
+            che = "Less than 5 day ago"  ;
+          }
+          else if(n - fa[i].time < 518,400,000)
+          {
+              che = "Less than 6 day ago"  ;
+          }
+
+            cell1.style.fontSize = "20px";
+            cell1.id = fa[i].id;
+            cell1.onclick = function () {
+                    tableText(this);
+                  };
+            cell1.style.fontFamily = "sans-serif";
+                cell1.innerHTML += "Name: " + fa[i].name + '<span style="float: right">' + "PSN: "  +fa[i].psn + '</span>' + "<br />Role: " + fa[i].role + "<br /> <center> " + che + "</center>";
+            //sspan.
+              var div = document.getElementById('uff');
+                 div.appendChild(fatable);
+
+
+        }
+
+    }
+
+  })
+}
+
+function add(){
+      var database = firebase.database();
+      var d = new Date();
+      var n = d.getTime();
+      var psn;
+      var role;
+      var newuserkey = firebase.database().ref().child('FreeAgent/').push().key;
+      var psnq = firebase.database().ref().child(userID + '/PSN/');
+      psnq.once('value', function(snapshot) {
+        psn = snapshot.val();
+        var role = firebase.database().ref().child(userID + '/role/');
+        role.once('value', function(snapshot) {
+        role = snapshot.val();
+
+
+
+        firebase.database().ref('FreeAgent/' + newuserkey).set({
+         name: usname,
+         psn: psn,
+         role: role,
+         time: n,
+         id: userID,
+
+       });
+     });
+
+      });
+
+
+
+
+     firebase.database().ref(userID).update({
+
+      FreeAgent: newuserkey,
+     });
+
+}
+
+function remove(){
+    firebase.database().ref('FreeAgent/' + freee).remove();
+  firebase.database().ref(userID).update({
+
+   FreeAgent: false,
+  });
+
+free();
+
+
+
+
+}
+
+function shopshow(){
+
+
+
+}
 </script>
 
 
@@ -1779,15 +2119,15 @@ else{
 </center>
 
 <div id="menu">
-  <img  src="Images/feed.png" height="40px" width="40px" />
+  <img onclick="newal();" src="Images/feed.png" height="40px" width="40px" />
   &nbsp&nbsp
   <img src="Images/alert.png" height="40px" width="40px" />
     &nbsp&nbsp
   <img onclick="frag();" src="Images/message.png" height="40px" width="40px" />
     &nbsp&nbsp
-  <img src="Images/shop.png" height="40px" width="40px" />
+  <img onclick="shopshow();" src="Images/shop.png" height="40px" width="40px" />
     &nbsp&nbsp
-<img  src="Images/signout.png" height="40px" width="40px" />
+<img  onclick="signout():" src="Images/signout.png" height="40px" width="40px" />
 </div>
 
 </div>
@@ -1819,7 +2159,7 @@ else{
 <div id="utility">
   <div id="umenu">
     <center>
-    <span onclick="cc();">Competetion </span> &nbsp&nbsp&nbsp  Comunity &nbsp&nbsp&nbsp News
+    <span onclick="cc();">Competetion </span> &nbsp&nbsp&nbsp  <span onclick="com();"> Comunity </span> &nbsp&nbsp&nbsp <span onclick="news();">News</span>
   </center>
   <div id="uff">
 
