@@ -11,10 +11,17 @@ body{
   background-color: #cccccc;
 
 }
+
+#containerrrr{
+width: 1415px;
+  margin: auto;
+
+
+}
 #header{
   display: block;
   height: 80px;
-  width: auto;
+  width: 1415px;
   border-radius: 10px;
   background-color:  #333333;
   border: 5px solid white;
@@ -58,37 +65,22 @@ border-radius: 10px;
   height: 300px;
   width: 500px;
 
-
+resize: both;
   margin-top: 20px;
 }
 
-#nhead{
-border: 5px solid white;
-  color: white;
-  font-size: 50px;
-  height: 60px;
-  background-color: #333333;
-  border-bottom: 5px solid #001433;
 
-}
-
-#nfeed{
-  height: 470px;
-  width: 490px;
-    overflow: scroll;
-  border: 5px solid white;
-  color: white;
-}
 
 #left{
   height: 400px;
   width: 500px;
+  resize: both;
   float: left;
 }
 #ltourn{
   height: 300px;
   width: 500px;
-
+resize: both;
   margin-top: 10px;
 
 }
@@ -98,6 +90,7 @@ border: 5px solid white;
   font-size: 50px;
 border: 5px solid white;
   height: 60px;
+  resize: both;
   background-color: #333333;
   border-bottom: 5px solid #001433;
 
@@ -106,10 +99,12 @@ border: 5px solid white;
 #leaderboard{
   color: white;
   font-size: 40px;
-
+resize: both;
+width: 385px;
 border: 5px solid white;
   height: 60px;
   background-color: #333333;
+margin-left: 10px;
   border-bottom: 5px solid #001433;
 
 }
@@ -117,8 +112,9 @@ border: 5px solid white;
 
 
 #tfeed{
-  height: 240px;
+  height: 485px;
   width: 490px;
+  resize: both;
   border: 5px solid white;
 }
 
@@ -128,8 +124,19 @@ border: 5px solid white;
 
   border: 5px solid white;
   float: left;
+  resize: both;
   margin-top: 10px;
+  text-align: center;
   margin-left: 5.5px;
+}
+
+input{
+  border: 0;
+padding: 4px 0;
+font-size: 20px;
+border-bottom: 2px solid #ccc;
+background-color: transparent;
+color: white;
 }
 
 /* #f{
@@ -148,20 +155,24 @@ border: 5px solid white;
   height: 500px;
   width: 340px;
 
-float: right;
+float: left;
+margin-left: 19.5px;
+resize: both;
 margin-top: 10px;
 }
 
 #lfeed{
   height: 490px;
-  width: 330px;
+  resize: both;
+  width: 385px;
   margin-top: 19px;
+margin-left: -5px;
   border: 5px solid white;
 
 }
 
 #ad{
-
+resize: both;
   height: 140px;
   width: 500px;
 border: 5px solid white;
@@ -173,7 +184,46 @@ border: 5px solid white;
 #middle{
   float: left;
   width: 500px;
+  resize: both;
   height: 600px;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:   #b3b3b3
+
+;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:   #b3b3b3
+
+;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:   #b3b3b3
+
+;
+}
+
+#rr{
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+
+margin-left: 10px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+}
+
+#d{
+
 }
 
 </style>
@@ -181,10 +231,31 @@ border: 5px solid white;
 <script type="text/javascript">
 var time = 0;
 var scrollBool = true;
+var xy;
+var x;
+var y;
+var z;
+
+var xx;
+var yy;
+
+var date;
 function load(){
 
 
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
 
+  if(user)
+  {
+    setTimeout(function () {
+  window.location.href = "index.htm";
+    }, 2000);
+
+
+  }
+if(scrollBool)
+{
   window.setInterval(function(){
     time++
     var div = document.getElementById('scroller');
@@ -206,90 +277,232 @@ function load(){
     /// call your function here
 
   }, 1000);
-
-news();
 }
-
-
-function news(){
-  var database = firebase.database();
-  var me = [];
-  database.ref('/News/').on('value', function(snap) {
-var me = [];
-    snap.forEach(function(item) {
-      me.push(item.val());
-    })
-    setTimeout(function() { llll(me); }, 30);
-
-
-  });
-
 
 }
 
-function llll(d){
-  document.getElementById("nfeed").innerHTML = "";
-  var posttable = document.createElement('table');
-  var checkcheck = 0;
+function chang(){
+  scrollBool = false;
+   x = document.createElement("INPUT");
+  x.type = "text";
+  x.placeholder = "Email";
+  x.id = "x";
 
-  var postfill = d;
+   y = document.createElement("INPUT");
+  y.type = "text";
+  y.placeholder = "Username";
+    y.id = "y";
 
-  for(var i = 0; i < postfill.length; i++){
+   z = document.createElement("INPUT");
+  z.type = "Password";
+  z.placeholder = "Password";
+    z.id = "z";
 
-      var row = posttable.insertRow(i);
-  row.style.backgroundColor = "#1aa0e0";
-      row.style.height = "50px";
-      row.style.width = "700px";
-      checkcheck++;
-      var cell1 = row.insertCell(0);
-      cell1.colspan = "2";
-      cell1.style.width = "700px";
-      cell1.style.height = "50px";
-      cell1.style.borderBottomLeftRadius = "0px";
-            cell1.style.borderBottomRightRadius = "0px";
-            cell1.style.borderTopLeftRadius = "25px";
-                  cell1.style.borderTopRightRadius = "25px";
-        cell1.style.fontSize = "40px";
-        cell1.style.fontFamily = "sans-serif";
-        cell1.innerHTML = postfill[i].Title;
-  row.style.backgroundColor = "#1aa0e0";
-  var igloo = postfill[i].Title + " <br />" + postfill[i].Text;
-  cell1.id = igloo;
-  cell1.onclick = function () {
-      newrun(this);
-        };
+   xy = document.createElement("INPUT");
+  xy.type = "Password";
+  xy.placeholder = "Re-Password";
+    xy.id = "xy";
 
 
 
-      var div = document.getElementById('nfeed');
-         div.appendChild(posttable);
+  var docume = document.getElementById("scroller");
+document.getElementById("scroller").innerHTML = "<center>";
+  docume.appendChild(x);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(y);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(z);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(xy);
+document.getElementById("scroller").innerHTML += "<br />";
+
+document.getElementById("scroller").innerHTML += '<button onclick="reggy();"> Register </button>';
+document.getElementById("scroller").innerHTML += "</center>";
+
+
+}
+function reggy()
+{
+var email = document.getElementById("x").value;
+var username = document.getElementById("y").value;
+var pass = document.getElementById("z").value;
+var repass = document.getElementById("xy").value;
+
+
+var firebaseref = firebase.database().ref();
+var database = firebase.database();
+var isSuccessful = false;
+
+if(username == "")
+{
+alert("Please enter a username");
+}
+else if(email == "")
+{
+alert("Please enter an email");
+}
+else {
+
+
+//check database for already existing username
+
+var checkusername = false;
+var checkemail = false;
+database.ref('/Users/').once('value', function(snap) {
+var fa = [];
+snap.forEach(function(item) {
+var ch = item.val();
+  if(username.toLowerCase() == ch.name.toLowerCase())
+  {
+    checkusername = true;
+  }
+
+  if(email.toLowerCase() == ch.email.toLowerCase())
+  {
+    checkemail = true;
+  }
+
+
+})
+
+
+if(checkusername == true)
+{
+    alert("Username has already been taken");
+}
+else if(checkemail == true)
+{
+  alert("Email has already been used");
+}
+else{
+
+
+    firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {  // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    });
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        usersRef = firebaseref.child(user.uid);
+        firebase.database().ref('Users/' + username).set({
+          email: email,
+          pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+          id: user.uid,
+          name: username,
+
+        });
+
+        var ch = user.uid;
+        firebase.database().ref(user.uid).set({
+         name: username,
+         email: email,
+         money: 0,
+         xp: 0,
+         Earnings: 0,
+         TryLs: 0,
+         XBL: "",
+         PSN: "",
+         pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+         twitter: "",
+         freeagentstatus: true,
+         Role: "",
+         FreeAgent: false,
+         gold: 0,
+         silver: 0,
+         bronze: 0,
+         plastic: 0,
+       });
+
+  firebase.database().ref(user.uid + '/Following/' + user.uid).update({ch});
+  isSuccessful = true;
+
+  setTimeout(function () {
+  changepage();
+  }, 2000);
+
+      }
+      });
+
 
   }
 
-}
+});
 
-function newrun(d){
-  var i = d.id;
-document.getElementById("nfeed").innerHTML = i;
+
 
 
 
 }
 
+
+
+
+
+
+}
+
+function changepage(){
+     window.location.href = "profile.htm";
+}
+
+function chan(){
+
+    scrollBool = false;
+     xx = document.createElement("INPUT");
+    xx.type = "text";
+    xx.placeholder = "Email";
+    xx.id = "xx";
+
+
+
+     yy = document.createElement("INPUT");
+    yy.type = "Password";
+    yy.placeholder = "Password";
+      yy.id = "yy";
+
+
+
+
+    var docume = document.getElementById("scroller");
+  document.getElementById("scroller").innerHTML = "<center>";
+    docume.appendChild(xx);
+
+    document.getElementById("scroller").innerHTML += "<br />";
+    docume.appendChild(yy);
+    document.getElementById("scroller").innerHTML += "<br />";
+
+
+  document.getElementById("scroller").innerHTML += '<button onclick="regg();"> Login </button>';
+  document.getElementById("scroller").innerHTML += "</center>";
+
+
+}
+
+function regg(){
+  var email = document.getElementById("xx").value;
+
+  var pass = document.getElementById("yy").value;
+  alert(email);
+
+}
 </script>
 </head>
 <body onload="load();">
+
+<div id="containerrrr">
   <div id="header">
-    <button id="loginbutton">
+    <button id="loginbutton" onclick="chan();">
       Login
     </button>
-    <button id="registerbutton">
+    <button id="registerbutton" onclick="chang();">
       Register
     </button>
     <center>
 <img style="margin-top: -93px;" src="Images/ngelogo.png" height="150px;" width="150px;"/>
 </center>
   </div>
+
 <div id="left">
 <div id="ltourn">
   <div id="thead">
@@ -301,14 +514,7 @@ document.getElementById("nfeed").innerHTML = i;
 
 </div>
 
-  <div id="news">
-    <div id="nhead">
-<center> <span onclick="news();"> News</span> </center>
-    </div>
-    <div id="nfeed">
 
-
-    </div>
 
   </div>
 </div>
@@ -330,6 +536,7 @@ document.getElementById("nfeed").innerHTML = i;
     </div>
 
 
+</div>
 </div>
 <div id="f">
 
