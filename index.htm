@@ -291,6 +291,7 @@ border-radius: 10px;
 }
 #botbot{
   height: 200px;
+  overflow: scroll;
   width: 100%;
   display: block;
 
@@ -401,7 +402,7 @@ function load(){
   var database = firebase.database();
 
 var picpicpic;
-  var database = firebase.database();
+
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
 
@@ -664,26 +665,19 @@ var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 function run(t){
 
   var i;
-  var d = t.id;
 
 
-  if(d != null)
-  {
-    i = t.id;
-  }
-  else{
-    i = t;
-  }
 
+  i = t;
 
   var tryllq = firebase.database().ref().child(i + '/name/');
   tryllq.on('value', function(snapshot) {
     var uu = snapshot.val();
-    document.getElementById("usersearch").placeholder = uu;
+    document.getElementById("bottop").placeholder = uu;
 
   });
 
-  document.getElementById("bottop").innerHTML = "";
+
   document.getElementById("botbot").innerHTML = "";
   var database = firebase.database();
 
@@ -732,7 +726,7 @@ function lollol(d){
         cell1.style.fontFamily = "sans-serif";
         cell1.innerHTML = postfill[i].text;
 row.style.backgroundColor = "#1aa0e0";
-if(postfill[i].userid = userID)
+if(postfill[i].senderuserid == userID)
 {
       cell1.style.borderBottomLeftRadius = "25px";
   row.style.backgroundColor = "green";
@@ -755,15 +749,17 @@ else{
 
 function tableText(d){
   var dd = d;
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
 var otheruserID = dd.data;
 var oomessage = dd.data;
-  if(dd.id = userID)
+  if(dd.data == userID)
   {
-firebase.database().ref("TeamScrim/" + dd.od).remove();
+firebase.database().ref("ScrimFinder/" + dd.id).remove();
   }else{
-    var firebaseref = firebase.database().ref();
-    var database = firebase.database();
 
+
+firebase.database().ref("ScrimFinder/" + dd.id).remove();
 
     var nnnnn;
     var cccc = firebase.database().ref().child(oomessage + '/name/');
@@ -875,7 +871,7 @@ scrims();
 
 function send(){
   var usermessage = document.getElementById("usertypetype").value;
-  document.getElementById("usertypee").value = "";
+  document.getElementById("usertypetype").value = "";
 
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
