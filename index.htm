@@ -290,14 +290,26 @@ border-radius: 10px;
 
 }
 #botbot{
-  height: 200px;
+  height: 170px;
   overflow: scroll;
   width: 100%;
   display: block;
+  text-transform: none;
 
 }
 
+#bottop{
+  height: 30px;
+  width: 100%;
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: #333333;
+
+
+}
 #botbotbot{
+
 
 }
   </style>
@@ -673,7 +685,7 @@ function run(t){
   var tryllq = firebase.database().ref().child(i + '/name/');
   tryllq.on('value', function(snapshot) {
     var uu = snapshot.val();
-    document.getElementById("bottop").placeholder = uu;
+    document.getElementById("bottop").innerHTML = uu;
 
   });
 
@@ -711,18 +723,18 @@ function lollol(d){
 
       var row = posttable.insertRow(checkcheck);
 
-      row.style.height = "50px";
+      row.style.height = "30px";
       row.style.width = "700px";
       checkcheck++;
       var cell1 = row.insertCell(0);
       cell1.colspan = "2";
       cell1.style.width = "700px";
-      cell1.style.height = "50px";
+      cell1.style.height = "40px";
       cell1.style.borderBottomLeftRadius = "0px";
             cell1.style.borderBottomRightRadius = "0px";
             cell1.style.borderTopLeftRadius = "25px";
                   cell1.style.borderTopRightRadius = "25px";
-        cell1.style.fontSize = "30px";
+        cell1.style.fontSize = "20px";
         cell1.style.fontFamily = "sans-serif";
         cell1.innerHTML = postfill[i].text;
 row.style.backgroundColor = "#1aa0e0";
@@ -995,7 +1007,7 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
 </div>
 
 <div id="botleft">
-<div height: 30px; width="100%" id="bottop">
+<div id="bottop">
 
 </div>
 <div id="botbot">
