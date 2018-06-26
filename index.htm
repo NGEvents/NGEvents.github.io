@@ -437,7 +437,12 @@ var picpicpic;
 
         });
 
-      }});
+      }
+    else{
+window.location.href = "signin.htm";
+
+
+    }});
 
 
 }
@@ -658,8 +663,8 @@ var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 }
 function run(t){
 
-var i;
-var d = t.id;
+  var i;
+  var d = t.id;
 
 
   if(d != null)
