@@ -206,7 +206,7 @@ margin-left: 5px;
   margin-top: 80px;
   margin-left: 5px;
     height: 600px;
-    width: 30.9%;
+    width: 33.9%;
     display: block;
     background-color:  #f2f2f2
 ;
@@ -312,6 +312,30 @@ border-radius: 10px;
 
 
 }
+
+#texttext{
+  font-size: 20px;
+
+
+}
+
+#textdate{
+  font-size: 25px;
+  color: white;
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+  margin-top: 14px;
+}
+
+#postname{
+  font-size: 25px;
+  margin-left: 40px;
+
+
+}
+
+
   </style>
 
   <script type="text/javascript">
@@ -408,12 +432,12 @@ window.onclick = function(event) {
     }
   }
 }
-
+var picpicpic;
 function load(){
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
 
-var picpicpic;
+
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -450,6 +474,7 @@ var picpicpic;
 
         });
 
+newal();
       }
     else{
 window.location.href = "signin.htm";
@@ -460,6 +485,202 @@ window.location.href = "signin.htm";
 
 }
 
+
+function newal(){
+    var database = firebase.database();
+    var followerfill = [];
+
+    var postfill = [];
+    database.ref(userID + '/Following/').once('value', function(snap) {
+      snap.forEach(function(item) {
+        followerfill.push(item.val());
+      })
+
+      for(var x = 0 ; x < followerfill.length; x++)
+        {
+          database.ref(followerfill[x].ch + '/Myposts/').on('value', function(snap) {
+
+            snap.forEach(function(item) {
+              postfill.push(item.val());
+            })
+
+            setTimeout(function() { lololol(postfill); }, 30);
+
+
+
+
+          });
+        }
+
+})
+
+
+
+
+}
+
+
+function lololol(postfill){
+                var checkcheck = 0;
+                var postfill = postfill;
+                  document.getElementById("ff").innerHTML = "";
+                  var posttable = document.createElement('table');
+
+                  for(var i = 0; i < postfill.length; i++){
+                    var row = posttable.insertRow(checkcheck);
+                    row.style.backgroundColor = "#1aa0e0";
+                    row.style.height = "100px";
+                    row.style.width = "700px";
+                    checkcheck++;
+                    var cell1 = row.insertCell(0);
+                    cell1.colspan = "2";
+                    cell1.style.width = "700px";
+                    cell1.style.height = "100px";
+                    cell1.style.borderBottomLeftRadius = "0px";
+                          cell1.style.borderBottomRightRadius = "0px";
+                          cell1.style.borderTopLeftRadius = "25px";
+                                cell1.style.borderTopRightRadius = "25px";
+                      cell1.style.fontSize = "40px";
+                      cell1.style.fontFamily = "sans-serif";
+                      var img = document.createElement('img');
+                      img.src = postfill[i].pic;
+                      img.style.height = "100px";
+                      img.style.width = "100px";
+                      img.style.float = "left";
+                      img.style.borderColor = "white";
+                      img.style.borderWidth = "Thick";
+
+                      var sspan = document.createElement('span');
+                      sspan.innerHTML =  postfill[i].text;
+                      sspan.style.fontSize = "10px";
+                      sspan.style.color = "blue";
+                      sspan.id = "textext";
+
+                                    //cell1.style.textAlign = "center";
+                    cell1.id = postfill[i].id;
+                  //  cell1.onclick = function () {
+                  //            tableText(this);
+                    //      };
+
+                                      var row2 = posttable.insertRow(checkcheck);
+                                      checkcheck++;
+                                        var cell2 = row2.insertCell(0);
+                                      row2.style.height = "30px";
+                                      row2.style.width = "700px";
+                                      row2.style.backgroundColor = "#1aa0e0";
+                                      cell2.style.width = "350px";
+                                      cell2.style.height = "30px";
+                                        cell2.style.borderBottomLeftRadius = "25px";
+                                              cell2.style.borderBottomRightRadius = "25px";
+                                              cell2.style.textAlign = "center";
+                                              cell2.style.color = "white";
+                                              cell2.style.textAlign = "center";
+                                                cell2.onclick = function () {
+                                                         goodluck(postfill[i]);
+                                                      };
+                                              cell2.innerHTML = '<span style="text-align: center;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+                  cell1.appendChild(img);
+                        cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+            //sspan.
+                    var div = document.getElementById('ff');
+                       div.appendChild(posttable);
+
+
+
+  }
+
+}
+
+
+function fillwindwow(){
+  var database = firebase.database();
+var postfill = [];
+  database.ref(userID + '/posts/').on('value',function(snap) {
+      postfill = [];
+              snap.forEach(function(item) {
+              var droptop = item.val();
+                postfill.push(droptop);
+            })
+            document.getElementById("ff").innerHTML = "";
+
+             var tbl = document.createElement('table');
+             var l = 0;
+            for(var i = postfill.length -1; i > 0; i--){
+var header = tbl.createTHead();
+
+
+              var row = header.insertRow(l);
+              row.style.backgroundColor = "#1aa0e0";
+              row.style.height = "100px";
+              row.style.width = "700px";
+              l++
+
+              var cell1 = row.insertCell(0);
+
+              cell1.colspan = "2";
+              cell1.style.width = "700px";
+              cell1.style.height = "100px";
+              cell1.style.borderBottomLeftRadius = "0px";
+                    cell1.style.borderBottomRightRadius = "0px";
+                    cell1.style.borderTopLeftRadius = "25px";
+                          cell1.style.borderTopRightRadius = "25px";
+                cell1.style.fontSize = "40px";
+                cell1.style.fontFamily = "sans-serif";
+                var img = document.createElement('img');
+                img.src = postfill[i].pic;
+                img.style.height = "100px";
+                img.style.width = "100px";
+                img.style.float = "left";
+                img.style.borderColor = "white";
+                img.style.borderWidth = "Thick";
+
+                var sspan = document.createElement('span');
+                sspan.innerHTML =  postfill[i].text;
+                sspan.style.fontSize = "10px";
+                sspan.style.color = "blue";
+                sspan.id = "textext";
+
+                              //cell1.style.textAlign = "center";
+              cell1.id = postfill[i].id;
+            //  cell1.onclick = function () {
+            //            tableText(this);
+              //      };
+
+
+
+                                var row2 = header.insertRow(l);
+                                l++;
+                                  var cell2 = row2.insertCell(0);
+
+                                row2.style.height = "30px";
+                                row2.style.width = "700px";
+                                row2.style.backgroundColor = "#1aa0e0";
+                                cell2.style.width = "350px";
+                                cell2.style.height = "30px";
+                                  cell2.style.borderBottomLeftRadius = "25px";
+                                        cell2.style.borderBottomRightRadius = "25px";
+                                        cell2.style.textAlign = "center";
+                                        cell2.style.color = "white";
+                                        cell2.style.textAlign = "center";
+                                          cell2.onclick = function () {
+                                                   goodluck(postfill[i]);
+                                                };
+                                        cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
+
+
+            cell1.appendChild(img);
+                  cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+
+//sspan.
+              var div = document.getElementById('ff');
+                 div.appendChild(tbl);
+
+
+
+            }
+          })
+
+}
 
 
 
@@ -546,7 +767,7 @@ window.location.href = "signin.htm";
               cell1.style.fontSize = "20px";
               cell1.id = fa[i].id;
               cell1.onclick = function () {
-                      tableText(this);
+                      newtableText(this);
                     };
 
 
@@ -563,6 +784,17 @@ window.location.href = "signin.htm";
 
     })
   }
+
+function newtableText(d){
+  var d;
+  firebase.database().ref(userID).update({
+
+  default: d.id,
+});
+
+window.location.href = "other.htm";
+
+}
 
 
 function scrims(){
@@ -674,6 +906,7 @@ var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
 
 }
+
 function run(t){
 
   var i;
@@ -712,6 +945,45 @@ var me = [];
 
 
 }
+function ruunn(t){
+
+  var i;
+
+
+
+  i = t.id;
+
+  var tryllq = firebase.database().ref().child(i + '/name/');
+  tryllq.on('value', function(snapshot) {
+    var uu = snapshot.val();
+    document.getElementById("bottop").innerHTML = uu;
+
+  });
+
+
+  document.getElementById("botbot").innerHTML = "";
+  var database = firebase.database();
+
+  oomessage = i;
+  //document.getElementById("usertypee").style.visibility = "visible";
+  //  document.getElementById("typesendd").style.visibility = "visible";
+  //var newuserkey = firebase.database().ref().child('/Messages/' + t + '/' + userID).push().key;
+    //var otheruserkey = firebase.database().ref().child('/Messages/' + userID + '/' + t).push().key;
+    database.ref('/Messages/' + userID + '/' + i).on('value', function(snap) {
+var me = [];
+      snap.forEach(function(item) {
+        me.push(item.val());
+      })
+      setTimeout(function() { lollol(me); }, 30);
+
+
+    });
+
+
+
+
+}
+
 
 function lollol(d){
   var postfill = d;
@@ -750,7 +1022,27 @@ else{
     cell1.style.borderBottomRightRadius = "25px";
 }
 
+cell1.onclick = function(){
 
+  if(postfill[0].senderuserid == userID)
+  {
+
+    cell1.id = postfill[0].otheruserID;
+      ig(cell1.id);
+  }
+  else{
+    row.style.backgroundColor = "green";
+      cell1.style.textAlign = "Left";
+      cell1.style.borderBottomRightRadius = "25px";
+      cell1.id = postfill[0].senderuserid;
+      ig(cell1.id);
+
+  }
+
+
+
+
+}
       var div = document.getElementById('botbot');
       div.scrollTop = div.scrollHeight;
          div.appendChild(posttable);
@@ -758,7 +1050,16 @@ else{
 }
 
 }
+function ig(d){
+  var d;
+  firebase.database().ref(userID).update({
 
+  default: d,
+});
+
+window.location.href = "other.htm";
+
+}
 function tableText(d){
   var dd = d;
   var firebaseref = firebase.database().ref();
@@ -959,6 +1260,207 @@ run(oomessage);
 
 }
 
+function posst(){
+
+
+    var usermessage = document.getElementById("usertype").value;
+    document.getElementById("usertype").value = "";
+
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var date = d.getDate();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var datte;
+
+  //var last2 = year.slice(-2);
+  //var last2 = year.toString().substr(year.length -2);
+  var last2 = year.toString().slice(-2);
+  if(hours > 11)
+  {
+  //   datte = monthscript(month) + " " + date + " " + year + " " + hours + ":" + minutes + "pm";
+
+     datte = hours - 12 + ":" + minutes + " " + "pm" +  " " + monthscript(month) + " " + date + " '" + last2 + " ";
+  }
+  else{
+       datte = hours + ":" + minutes + "am"  + " " + monthscript(month) + " " + date + " '" + last2 + " ";
+  }
+
+  var sizecheck = usermessage.toLowerCase().search("font-size:");
+  var buttoncheck = usermessage.toLowerCase().search("</button>");
+
+
+  if(sizecheck != -1){
+    alert("You can not change the size of your font. Use <Strong> to bold :)");
+
+  }
+  else if(buttoncheck != -1){
+    alert("You can not add buttons. Use <a> to link :)");
+  }
+  else{
+
+
+                var data =
+                {
+                  username: usname,
+                  userid: userID,
+                  text: usermessage,
+                  pic: picpicpic,
+                  date: datte,
+                  votes: 0,
+
+                  comments: 0,
+
+
+                }
+
+  //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
+  //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+  var newuserkey = firebase.database().ref().child(userID + '/Myposts/').push().key;
+
+
+
+  var updates = {};
+
+  //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+  //  updates[userID + '/posts/' + newPostKey] = data;
+    updates[userID + '/Myposts/' + newuserkey] = data;
+
+  return firebase.database().ref().update(updates);
+
+
+
+
+
+
+  }
+
+  location.reload();
+  }
+
+
+  function monthscript(month){
+    var trolo = month + 1;
+    switch(trolo){
+                case 1:
+                    return "January";
+                    break;
+                case 2:
+                    return "February";
+                    break;
+                case 3:
+                    return "March";
+                    break;
+                case 4:
+                    return "April";
+                    break;
+                case 5:
+                  return "May";
+                    break;
+                case 6:
+                    return "June";
+                    break;
+                case 7:
+                    return "July";
+                    break;
+                case 8:
+                    return "August";
+                    break;
+                case 9:
+                    return "September";
+                    break;
+                case 10:
+                    return "October";
+                    break;
+                case 11:
+                    return "November";
+                    break;
+                case 12:
+                    return "December";
+                    break;
+                default:
+                    monthName = "Invalid month";
+                    break;
+
+
+    }
+  }
+
+
+  function frag(){
+    var database = firebase.database();
+    var me = [];
+    database.ref(userID + '/LastMessage/').on('value', function(snap) {
+  var me = [];
+      snap.forEach(function(item) {
+        me.push(item.val());
+      })
+      setTimeout(function() { lolll(me); }, 30);
+
+
+    });
+
+  }
+
+  function lolll(d)
+  {
+
+    var eh = d;
+    var postfill = eh;
+    document.getElementById("botbot").innerHTML = "";
+    var posttable = document.createElement('table');
+    var checkcheck = 0;
+
+
+  for(var i = 0; i < postfill.length; i++){
+
+      var row = posttable.insertRow(i);
+  row.style.backgroundColor = "#1aa0e0";
+      row.style.height = "50px";
+      row.style.width = "700px";
+      checkcheck++;
+      var cell1 = row.insertCell(0);
+      cell1.colspan = "2";
+      cell1.style.width = "700px";
+      cell1.style.height = "50px";
+      cell1.style.borderBottomLeftRadius = "0px";
+            cell1.style.borderBottomRightRadius = "0px";
+            cell1.style.borderTopLeftRadius = "25px";
+                  cell1.style.borderTopRightRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        cell1.innerHTML = postfill[i].text;
+  row.style.backgroundColor = "#1aa0e0";
+
+
+  if(postfill[i].userid == userID)
+  {
+    //cell1.id = h;
+    cell1.id = postfill[i].senderuserid;
+    cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].senderusername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
+    cell1.onclick = function () {
+
+      ruunn(this);
+          };
+  }
+  else{
+    cell1.innerHTML = '<span style="color: white;">' + "<Strong> " + postfill[i].recievername + "</span></Strong>" + '<span style="text-align: right;">' + postfill[i].text + '</span>';
+  cell1.id = postfill[i].recieverid;
+
+    cell1.onclick = function () {
+        ruunn(this);
+          };
+  }
+
+      var div = document.getElementById('botbot');
+         div.appendChild(posttable);
+
+  }
+
+  }
 
   </script>
 
@@ -991,7 +1493,7 @@ Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp News  &nbsp&nbsp&nbsp Stor
     </div>
 
 
-  <img height="80px" width="80px" id="pp" />
+<a href="profile.htm"><img height="80px" width="80px" id="pp" /></a>
 </div>
 
 </div>
@@ -1007,6 +1509,7 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
 </div>
 
 <div id="botleft">
+  <div id="leftl" style="margin-top:1px; display: inline; float: left;"><button id="backf" onclick="frag();">back</button></div>
 <div id="bottop">
 
 </div>
@@ -1015,7 +1518,7 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
 </div>
 <div id="botbotbot">
 <input id="usertypetype" placeholder="">
-  <button id="postt" onclick="send();"> Post </button>
+  <button id="postt" onclick="send();"> Send </button>
 </div>
 </div>
 </div>
@@ -1027,7 +1530,7 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
 
   </div>
   <input id="usertype" placeholder="">
-  <button id="post"> Post </button>
+  <button id="post" onclick="posst();"> Post </button>
 </div>
 
 <div id="upright">
