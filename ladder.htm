@@ -1,3 +1,10 @@
+<!--
+Developer:(zNine) Twitter @zNineFD :-D
+ Version Number='0.0.1'
+ Version Update='01'
+ Version Name = 'AfterMath'
+ Version Publish Date = '05-25-2018'
+Developer Notes: Betaaaa  -->
 <!DOCTYPE html>
 <html>
 
@@ -190,9 +197,9 @@ width: 238px;
 
 #center{
 margin-top: 80px;
-margin-left: 5px;
-  height: 450px;
-  width: 37.9%;
+margin-left: 10px;
+  height: 640px;
+  width: 71.9%;
   display: block;
   background-color:  #f2f2f2
 ;
@@ -335,12 +342,98 @@ border-radius: 10px;
 
 }
 
+#centertop{
+background-color: black;
+width: 20%;
+height: 130px;
+float: left;
+}
+
+#teamimage{
+  display: block;
+}
+
+#teamname{
+    display: block;
+}
+
+#centercenter{
+  height: 130px;
+  width: 40%;
+  background-color: black;
+  color: white;
+  float: left;
+  display: block;
+
+}
+
+#centerright{
+  height: 130px;
+  width: 40%;
+  background-color: black;
+  color: white;
+  float: left;
+  display: block;
+}
+
+#centermenu{
+  background-color: grey;
+  width: 50%;
+  height: 40px;
+  color: white;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rankingtab{
+  margin-right: 13px;
+  margin-left: 13px;
+  margin-top: 3px;
+  color: blue;
+}
+#MatchfinderTab{
+  margin-right: 13px;
+  margin-left: 13px;
+  margin-top: 3px;
+}
+
+#Rules{
+  margin-right: 13px;
+  margin-left: 13px;
+}
+
+#centerff{
+  height: 430px;
+  width: 50%;
+  background-color: black;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+
+#adspace{
+  height: 430px;
+  width: 40%;
+  background-color: black;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+
+}
 
   </style>
 
   <script type="text/javascript">
 var userID;
 var usname;
+var ladderid;
+var teamid;
   function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
     var imgg = document.createElement('imgg');
@@ -468,13 +561,81 @@ function load(){
         earningsq.on('value', function(snapshot) {
           picpicpic = snapshot.val();
           document.getElementById("pp").src = picpicpic;
+        });
+
+        var ladder = firebase.database().ref().child(userID + '/ladderid/');
+        ladder.on('value', function(snapshot) {
+          ladderid = snapshot.val();
+          rankingclick();
+          var teami = firebase.database().ref().child(userID + '/' + ladderid + '/');
+          teami.on('value', function(snapshot) {
+
+            teamid = snapshot.val();
+
+            if(teamid == "" || teamid == null)
+            {
+              teamid = null;
+
+              document.getElementById("centertop").innerHTML = '<input id="tname" placeholder="Team name"><button onclick="teamcreate();"> Create Team </button>';
+              document.getElementById("centercenter").innerHTML ="";
+                    document.getElementById("centerright").innerHTML ="";
+            }
+            else{
+var wins;
+var loses;
+var xp;
+var tnam;
+var picid;
+              var teamw = firebase.database().ref().child('Ladder/' + ladderid + '/' + teamid + '/wins');
+              teamw.on('value', function(snapshot) {
+                wins = snapshot.val();
+
+              });
+
+              var loses = firebase.database().ref().child('Ladder/' + ladderid + '/' + teamid + '/loses');
+              loses.on('value', function(snapshot) {
+                loses = snapshot.val();
+  document.getElementById("winloss").innerHTML = wins + "-" + loses;
+              });
+
+              var xxxx = firebase.database().ref().child('Ladder/' + ladderid + '/' + teamid + '/xp');
+              xxxx.on('value', function(snapshot) {
+                xp = snapshot.val();
+document.getElementById("xp").innerHTML = xp + " XP";
+              });
+
+              var tnamee = firebase.database().ref().child('Ladder/' + ladderid + '/' + teamid + '/teamname');
+              tnamee.on('value', function(snapshot) {
+                tnam = snapshot.val();
+            document.getElementById("teamname").innerHTML = tnam;
+              });
+
+              var picidd = firebase.database().ref().child('Ladder/' + ladderid + '/' + teamid + '/pic');
+              picidd.on('value', function(snapshot) {
+                picid = snapshot.val();
+                if(picid == null)
+                {
+                  document.getElementById("piciddd").src = "Images/ngelogo.png";
+                }
+                else{
+                    document.getElementById("piciddd").src = picid;
+                }
+
+              });
 
 
 
+
+
+
+
+            }
+          });
 
         });
 
-newal();
+
+
       }
     else{
 window.location.href = "signin.htm";
@@ -485,202 +646,64 @@ window.location.href = "signin.htm";
 
 }
 
+function teamcreate(){
 
-function newal(){
-    var database = firebase.database();
-    var followerfill = [];
-
-    var postfill = [];
-    database.ref(userID + '/Following/').once('value', function(snap) {
-      snap.forEach(function(item) {
-        followerfill.push(item.val());
-      })
-
-      for(var x = 0 ; x < followerfill.length; x++)
-        {
-          database.ref(followerfill[x].ch + '/Myposts/').on('value', function(snap) {
-
-            snap.forEach(function(item) {
-              postfill.push(item.val());
-            })
-
-            setTimeout(function() { lololol(postfill); }, 30);
-
-
-
-
-          });
-        }
-
-})
-
-
-
+  var teamid = makeid();
+var d = document.getElementById("tname").value;
+alert(teamid);
+if(d == null || d == "")
+{
 
 }
-
-
-function lololol(postfill){
-                var checkcheck = 0;
-                var postfill = postfill;
-                  document.getElementById("ff").innerHTML = "";
-                  var posttable = document.createElement('table');
-
-                  for(var i = 0; i < postfill.length; i++){
-                    var row = posttable.insertRow(checkcheck);
-                    row.style.backgroundColor = "#1aa0e0";
-                    row.style.height = "100px";
-                    row.style.width = "700px";
-                    checkcheck++;
-                    var cell1 = row.insertCell(0);
-                    cell1.colspan = "2";
-                    cell1.style.width = "700px";
-                    cell1.style.height = "100px";
-                    cell1.style.borderBottomLeftRadius = "0px";
-                          cell1.style.borderBottomRightRadius = "0px";
-                          cell1.style.borderTopLeftRadius = "25px";
-                                cell1.style.borderTopRightRadius = "25px";
-                      cell1.style.fontSize = "40px";
-                      cell1.style.fontFamily = "sans-serif";
-                      var img = document.createElement('img');
-                      img.src = postfill[i].pic;
-                      img.style.height = "100px";
-                      img.style.width = "100px";
-                      img.style.float = "left";
-                      img.style.borderColor = "white";
-                      img.style.borderWidth = "Thick";
-                      var sspan = document.createElement('span');
-                      sspan.innerHTML =  postfill[i].text;
-                      sspan.style.fontSize = "10px";
-                      sspan.style.color = "blue";
-                      sspan.id = "textext";
-                                    //cell1.style.textAlign = "center";
-                    cell1.id = postfill[i].id;
-                  //  cell1.onclick = function () {
-                  //            tableText(this);
-                    //      };
-
-                                  var row2 = posttable.insertRow(checkcheck);
-                                      checkcheck++;
-                                        var cell2 = row2.insertCell(0);
-                                      row2.style.height = "30px";
-                                      row2.style.width = "700px";
-                                      row2.style.backgroundColor = "#1aa0e0";
-                                      cell2.style.width = "350px";
-                                      cell2.style.height = "30px";
-                                        cell2.style.borderBottomLeftRadius = "25px";
-                                              cell2.style.borderBottomRightRadius = "25px";
-                                              cell2.style.textAlign = "center";
-                                              cell2.style.color = "white";
-                                              cell2.style.textAlign = "center";
-                                                cell2.onclick = function () {
-                                                         goodluck(postfill[i]);
-                                                      };
-                                              cell2.innerHTML = '<span style="text-align: center;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
-                  cell1.appendChild(img);
-                        cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
-            //sspan.
-                    var div = document.getElementById('ff');
-                       div.appendChild(posttable);
-
-
+else{
+  var data = {
+    teamid: teamid,
+    teamname: d,
+    teamcaptainusername: userID,
+    wins: 0,
+    loses: 0,
+    wl: 0,
+    xp: 0,
+    rank: 0,
+    pic: null,
 
   }
 
-}
 
 
-function fillwindwow(){
-  var database = firebase.database();
-var postfill = [];
-  database.ref(userID + '/posts/').on('value',function(snap) {
-      postfill = [];
-              snap.forEach(function(item) {
-              var droptop = item.val();
-                postfill.push(droptop);
-            })
-            document.getElementById("ff").innerHTML = "";
+  var updates = {};
 
-             var tbl = document.createElement('table');
-             var l = 0;
-            for(var i = postfill.length -1; i > 0; i--){
-var header = tbl.createTHead();
-
-
-              var row = header.insertRow(l);
-              row.style.backgroundColor = "#1aa0e0";
-              row.style.height = "100px";
-              row.style.width = "700px";
-              l++
-
-              var cell1 = row.insertCell(0);
-
-              cell1.colspan = "2";
-              cell1.style.width = "700px";
-              cell1.style.height = "100px";
-              cell1.style.borderBottomLeftRadius = "0px";
-                    cell1.style.borderBottomRightRadius = "0px";
-                    cell1.style.borderTopLeftRadius = "25px";
-                          cell1.style.borderTopRightRadius = "25px";
-                cell1.style.fontSize = "40px";
-                cell1.style.fontFamily = "sans-serif";
-                var img = document.createElement('img');
-                img.src = postfill[i].pic;
-                img.style.height = "100px";
-                img.style.width = "100px";
-                img.style.float = "left";
-                img.style.borderColor = "white";
-                img.style.borderWidth = "Thick";
-
-                var sspan = document.createElement('span');
-                sspan.innerHTML =  postfill[i].text;
-                sspan.style.fontSize = "10px";
-                sspan.style.color = "blue";
-                sspan.id = "textext";
-
-                              //cell1.style.textAlign = "center";
-              cell1.id = postfill[i].id;
-            //  cell1.onclick = function () {
-            //            tableText(this);
-              //      };
+  //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+  //  updates[userID + '/posts/' + newPostKey] = data;
 
 
 
-                                var row2 = header.insertRow(l);
-                                l++;
-                                  var cell2 = row2.insertCell(0);
+  updates['/Ladder/' + ladderid + '/' + teamid] = data;
 
-                                row2.style.height = "30px";
-                                row2.style.width = "700px";
-                                row2.style.backgroundColor = "#1aa0e0";
-                                cell2.style.width = "350px";
-                                cell2.style.height = "30px";
-                                  cell2.style.borderBottomLeftRadius = "25px";
-                                        cell2.style.borderBottomRightRadius = "25px";
-                                        cell2.style.textAlign = "center";
-                                        cell2.style.color = "white";
-                                        cell2.style.textAlign = "center";
-                                          cell2.onclick = function () {
-                                                   goodluck(postfill[i]);
-                                                };
-                                        cell2.innerHTML = '<span style="float: left; margin-left: 10px;" id="votes"> Votes: '+ postfill[i].votes + '</span><strong>Extend</strong>' + '<span style="float: Right; margin-right: 10px;" id="votes"> Comments: ' + postfill[i].comments+'  </span>';
-
-
-            cell1.appendChild(img);
-                  cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].username + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" +'<span id="textdate">' + postfill[i].date + '</span>'+ "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
-
-//sspan.
-              var div = document.getElementById('ff');
-                 div.appendChild(tbl);
+  alert(userID);
+    var u = {};
+    u[userID + '/' + ladderid] = teamid;
+   firebase.database().ref().update(u);
+  return firebase.database().ref().update(updates);
 
 
 
-            }
-          })
 
 }
 
 
+}
+
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 39; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
 
   function free(){
     var database = firebase.database();
@@ -1258,87 +1281,6 @@ run(oomessage);
 
 }
 
-function posst(){
-
-
-    var usermessage = document.getElementById("usertype").value;
-    document.getElementById("usertype").value = "";
-
-    var firebaseref = firebase.database().ref();
-    var database = firebase.database();
-    var d = new Date();
-    var year = d.getFullYear();
-    var month = d.getMonth();
-    var date = d.getDate();
-    var hours = d.getHours();
-    var minutes = d.getMinutes();
-    var datte;
-
-  //var last2 = year.slice(-2);
-  //var last2 = year.toString().substr(year.length -2);
-  var last2 = year.toString().slice(-2);
-  if(hours > 11)
-  {
-  //   datte = monthscript(month) + " " + date + " " + year + " " + hours + ":" + minutes + "pm";
-
-     datte = hours - 12 + ":" + minutes + " " + "pm" +  " " + monthscript(month) + " " + date + " '" + last2 + " ";
-  }
-  else{
-       datte = hours + ":" + minutes + "am"  + " " + monthscript(month) + " " + date + " '" + last2 + " ";
-  }
-
-  var sizecheck = usermessage.toLowerCase().search("font-size:");
-  var buttoncheck = usermessage.toLowerCase().search("</button>");
-
-
-  if(sizecheck != -1){
-    alert("You can not change the size of your font. Use <Strong> to bold :)");
-
-  }
-  else if(buttoncheck != -1){
-    alert("You can not add buttons. Use <a> to link :)");
-  }
-  else{
-
-
-                var data =
-                {
-                  username: usname,
-                  userid: userID,
-                  text: usermessage,
-                  pic: picpicpic,
-                  date: datte,
-                  votes: 0,
-
-                  comments: 0,
-
-
-                }
-
-  //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
-  //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
-  var newuserkey = firebase.database().ref().child(userID + '/Myposts/').push().key;
-
-
-
-  var updates = {};
-
-  //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
-  //  updates[userID + '/posts/' + newPostKey] = data;
-    updates[userID + '/Myposts/' + newuserkey] = data;
-
-  return firebase.database().ref().update(updates);
-
-
-
-
-
-
-  }
-
-  location.reload();
-  }
-
 
   function monthscript(month){
     var trolo = month + 1;
@@ -1460,6 +1402,203 @@ function posst(){
 
   }
 
+  function rankingclick(){
+var database = firebase.database();
+  document.getElementById("centerff").innerHTML = "";
+    document.getElementById("rankingtab").style.color="blue";
+    document.getElementById("Rules").style.color="white";
+    document.getElementById("MatchfinderTab").style.color="white";
+var tss = [];
+
+database.ref('/Ladder/' + ladderid).once('value', function(snap) {
+  var fa = [];
+  snap.forEach(function(item) {
+
+
+    tss.unshift(item.val());
+  })
+
+let keys = Object.keys(tss);
+keys.sort(function(a, b) { return tss[a].xp - tss[b].xp });
+
+var x = document.createElement("TABLE");
+var header = x.createTHead();
+var row = header.insertRow(0);
+row.style.backgroundColor = "red";
+var cell = row.insertCell(0);
+cell.innerHTML = "Rank";
+cell.width = "20px";
+header.style.textAlign = "center";
+var cell1 = row.insertCell(1);
+cell1.innerHTML = "Team name";
+cell1.width = "250px";
+
+var cell2 = row.insertCell(2);
+cell2.innerHTML = "XP";
+cell2.width = "30px";
+
+var cell3 = row.insertCell(3);
+cell3.innerHTML = "W/L";
+cell3.width = "30px";
+
+var cell4 = row.insertCell(4);
+cell4.innerHTML = "PCT";
+cell4.width = "35px";
+
+var cell5 = row.insertCell(5);
+cell5.innerHTML = "√";
+cell5.width = "15px";
+
+var div = document.getElementById("centerff");
+div.appendChild(x);
+var rank = 0;
+for(var i = tss.length - 1; i >= 0; i--)
+{
+rank++;
+  var t = keys[i];
+
+
+
+  var row = x.insertRow(rank);
+  row.style.backgroundColor = "red";
+  var cell = row.insertCell(0);
+  cell.innerHTML = rank;
+  cell.width = "20px";
+
+  var cell1 = row.insertCell(1);
+  cell1.innerHTML = tss[t].teamname;
+  cell1.width = "250px";
+
+  var cell2 = row.insertCell(2);
+  cell2.innerHTML = tss[t].xp;
+  cell2.width = "30px";
+
+  var cell3 = row.insertCell(3);
+  cell3.innerHTML = tss[t].wins + "-" + tss[t].loses;
+  cell3.width = "30px";
+
+  var xx = tss[t].wins / (tss[t].wins + tss[t].loses);
+
+
+  var cell4 = row.insertCell(4);
+  if(xx == 1)
+  {
+    cell4.innerHTML = "1.000";
+  }
+  else{
+    cell4.innerHTML = xx * 1000 + "";
+  }
+
+  cell4.width = "35px";
+
+  var cell5 = row.insertCell(5);
+  cell5.innerHTML = "√";
+  cell5.width = "15px";
+
+
+}
+
+
+var div = document.getElementById("centerff");
+div.appendChild(x);
+})
+
+
+  }
+
+  function matchfinderclick(){
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+        document.getElementById("rankingtab").style.color="white";
+        document.getElementById("Rules").style.color="white";
+        document.getElementById("MatchfinderTab").style.color="blue";
+
+        var fullfill = document.getElementById("centerff");
+        fullfill.innerHTML = "";
+        document.getElementById("centerff").innerHTML += '<button id="creatematch" onclick="cre();"> Create match </button>';
+
+        var datebase = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/matchfinder').on('value', function(snap) {
+          var fa = [];
+          snap.forEach(function(item) {
+            fa.shift(item.val());
+          })
+
+        });
+
+  }
+
+function cre(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+  var d = new Date();
+  var n = d.getTime();
+  var zzz = document.getElementById("centerff");
+  zzz.innerHTML = "";
+  zzz.innerHTML += '<center> &nbsp&nbsp&nbsp&nbsp&nbsp<select id="rule"> <option value="NGE SnD"> NGE SnD </option> </option><option value="NGE Variant"> NGE Variant </option><option value="CWL Rules">CWL Rules </option></select> </center>';
+
+  var r = document.getElementById("rule");
+  var rul = r.options[r.selectedIndex].value;
+  var datebase = firebase.database();
+var d =0;
+  var farr = [];
+  var username = [];
+  database.ref('/Ladder/' + ladderid + '/' + teamid + '/Roster').on('value', function(snap) {
+
+
+    snap.forEach(function(item) {
+      farr.unshift(item.val());
+    })
+
+
+for(var i = 0; i < farr.length; i++){
+  var ch = farr[i];
+  database.ref(ch + '/name/').on('value', function(snap) {
+
+    snap.forEach(function(item) {
+      username.shift(item.val());
+    })
+
+    for(var i = 0; i < username.length; i++)
+    {
+      document.getElementById("centerff").innerHTML += username[i];
+    }
+  });
+
+
+}
+
+
+
+
+  });
+
+//zzz.innerHTML += '<center><button onclick="cc();"> Post </button></center>';
+
+/*
+  var data = {
+time: n,
+posterid: teamid,
+rulset: rulset,
+roster: roster,
+type: type,
+}*/
+
+
+}
+
+
+  function rulesclick(){
+
+        document.getElementById("rankingtab").style.color="white";
+        document.getElementById("Rules").style.color="blue";
+        document.getElementById("MatchfinderTab").style.color="white";
+
+
+  }
+
+
+
   </script>
 
 
@@ -1521,21 +1660,41 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
 </div>
 </div>
 <div id="center">
+  <center>
+  <div id="centertop">
+    <span id="teamimage">
+    <img src="Images/ngelogo.png" id="piciddd" height="100px" width="100px" /></span>
+    <span style="color: white;" id="teamname">Teamname</span>
+</center>
+<div id="centercenter">
+  <span id="winloss">4-0</span><br />
+  <span id="xp">0 XP</span><br />
+  <span id="LadderRank">1st in Ladder</span><br />
+  <span id="ScheduledMatch">Vs AGN </span>
 
 </div>
-<div id="right">
-  <div id="ff">
+<div id="centerright">
+Instant Match Finder create <br />
+Dispand Team <br />
 
+
+</div>
+<div id="centermenu">
+<span id="rankingtab" onclick="rankingclick();">Rankings </span>
+<span id="MatchfinderTab" onclick="matchfinderclick();">Match Finder </span>
+<span id="Rules" onclick="rulesclick();">Rules </span>
+
+
+</div>
+
+<div id="centerff">
+
+</div>
+
+<div id="adspace">
+
+</div>
   </div>
-  <input id="usertype" placeholder="">
-  <button id="post" onclick="posst();"> Post </button>
-</div>
-
-<div id="upright">
-</div>
-
-<div id="botright">
-</div>
 
 
 </div>

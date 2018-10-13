@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript">
+var apiKey = "iaux7giB5Ct1eR31ZpWUPF2wPJXwyA4NjCUoaqcm";
+var request = new XMLHttpRequest();
+var itemJSON;
+itemJSON = {
+  "api_key": apiKey,
+  "tournament[name]":'NGE'
+}
+
+function UserAction() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+             alert(this.responseText);
+         }
+    };
+    xhttp.open("POST", "https://api.challonge.com/v1/tournaments", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(itemJSON);
+}
+
+
+
+
+
+
+
+</script>
+
+
+</head>
+
+<body>
+  <button type="submit" onclick="UserAction()">Search</button>
+
+
+
+</body>
+
+</html>
